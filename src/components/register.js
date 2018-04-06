@@ -7,6 +7,12 @@ export default class Register extends Component {
   render() {
     return (
 
+<div class="row">
+
+ <div class="col">
+    </div>
+
+<div class="col">
 
 <div class="card">
 
@@ -46,6 +52,13 @@ export default class Register extends Component {
 
     </div>
 
+</div>
+
+
+<div class="col">
+    </div>
+
+    </div>
 </div>
 
     );

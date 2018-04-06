@@ -8,9 +8,13 @@ export default class Login extends Component {
 
   render() {
     return (
-<div>
 
+<div class="row">
 
+<div class="col">
+    </div>
+
+    <div class="col">
 <section class="form-elegant">
 
     <div class="card">
@@ -52,7 +56,10 @@ export default class Login extends Component {
     </div>
 
 </section>
+</div>
 
+<div class="col">
+    </div>
 
 </div>
 

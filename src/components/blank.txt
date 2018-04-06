@@ -7,66 +7,47 @@ export default class Home extends Component {
   render() {
     return (
 
-      <div  className='login-form'>
-
-<section class="text-center py-2">
-
+<div  className='login-form'>
+  <section class="pt-5 mt-3 pb-3">
     <h1 class="h1 font-weight-bold text-center mb-5 pt-2">Home</h1>
 
-    <div class="row">
+       <div class="row">
 
-        <div class="col-lg-5 col-md-12 mb-8">
-        <a href="" class="pink-text">
-            <h6 class="mb-3 mt-4">
-                <i class="fa fa-map "></i>
-                <strong> Latest Orders</strong>
-            </h6>
-        </a>
+         <div class="col-md-6 col-lg-4">
 
-            <h4 class="mb-3 font-weight-bold dark-grey-text">
-                <strong> lunch</strong>
-            </h4>
-            <h4 class="mb-3 font-weight-bold dark-grey-text">
-                <strong>breakfast</strong>
-            </h4>
-            <h4 class="mb-3 font-weight-bold dark-grey-text">
-                <strong>drinks</strong>
-            </h4>
-            <a class="btn btn-pink btn-rounded btn-md">Read more</a>
-        </div>
+          <div class="card card-personal">
 
+             <div class="card-body">
+                  <a><h1 class="card-title title-one">Latest Orders</h1></a>
+                    <h4 class="card-meta">Dinner 2013-8-4 </h4>
+                    <h4 class="card-meta">breakfast 2013</h4>
+                    <h4 class="card-meta">lunch 2013</h4>
+                    <hr/>
 
+              </div>
 
+          </div>
 
-        <div class="col-lg-5 col-md-12 mb-8">
-                   <div class="view overlay rounded z-depth-2 mb-2">
-                       <img src="https://mdbootstrap.com/img/Photos/Others/images/13.jpg" class="img-fluid" alt="Thrid sample image"/>
-                       <a>
-                           <div class="mask rgba-white-slight"></div>
-                       </a>
-                   </div>
+      </div>
 
-                   <a href="" class="cyan-text">
-                       <h6 class="mb-3 mt-4">
-                           <i class="fa fa-fire "></i>
-                           <strong> Culture</strong>
-                       </h6>
-                   </a>
-                   <h4 class="mb-3 font-weight-bold dark-grey-text">
-                       <strong>This is title of the news</strong>
-                   </h4>
-                   <p>by
-                       <a class="font-weight-bold dark-grey-text">Billy Forester</a>, 15/07/2018</p>
-                   <p class="grey-text">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
-                       placeat facere possimus voluptas.</p>
-                   <a class="btn btn-info btn-rounded btn-md">Read more</a>
-               </div>
+    <div class="col-md-6 col-lg-4">
+          <div class="card card-personal">
+             <div class="card-body">
+              <a><h2 class="card-title title-one">friends activity</h2></a>
+              <h5 class="card-meta">ahmed ordered</h5>
+              <hr/>
+              </div>
+
+          </div>
 
     </div>
 
-</section>
+  </div>
 
-    </div>
+    </section>
+
+
+</div>
 
     );
   }

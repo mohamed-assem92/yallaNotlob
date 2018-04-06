@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import '../App.css';
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink } from 'mdbreact';
 import { BrowserRouter as Router } from 'react-router-dom';
-
+import Home from './home';
 export default class NavbarFeatures extends React.Component {
   constructor(props) {
       super(props);
@@ -38,7 +38,7 @@ export default class NavbarFeatures extends React.Component {
                   <Collapse isOpen = { this.state.collapse } navbar>
                       <NavbarNav left>
                         <NavItem active>
-                            <NavLink to="#"><i className="fa fa-home" aria-hidden="true"></i>Home</NavLink>
+                            <NavLink to="/home"><i className="fa fa-home" aria-hidden="true"></i>Home</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink to="#"><i className="fa fa-user-circle-o" aria-hidden="true"></i>Friends</NavLink>
