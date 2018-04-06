@@ -18,8 +18,8 @@ export default class Login extends Component {
         <Button>Login</Button>
 
 <div>
-        <a type="button" class="btn-floating btn-lg btn-fb" ><i class="fa fa-facebook"></i></a>
-        <a type="button" class="btn-floating btn-lg btn-gplus" ><i class="fa fa-google-plus"></i></a>
+        <a type="button" className="btn-floating btn-lg btn-fb" ><i className="fa fa-facebook"></i></a>
+        <a type="button" className="btn-floating btn-lg btn-gplus" ><i className="fa fa-google-plus"></i></a>
         </div>
     </div>
 </form>
