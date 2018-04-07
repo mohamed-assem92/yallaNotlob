@@ -2,9 +2,22 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Button, Input, label } from 'mdbreact';
+import SocialButton from './socialButton';
+import GoogleLogin from 'react-google-login';
 
+const handleSocialLogin = (user) => {
+  console.log(user)
+}
 
+const handleSocialLoginFailure = (err) => {
+  console.error(err)
+}
+
+const responseGoogle = (response) => {
+  console.log(response);
+}
 export default class Login extends Component {
+
 
   render() {
     return (
@@ -42,9 +55,26 @@ export default class Login extends Component {
             <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign in with:</p>
 
                 <div class="row my-3 d-flex justify-content-center">
-                    <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i class="fa fa-facebook blue-text text-center"></i></button>
+                <div>
 
-                    <button type="button" class="btn btn-white btn-rounded z-depth-1a"><i class="fa fa-google-plus blue-text"></i></button>
+    <GoogleLogin  class="btn btn-white btn-rounded z-depth-1a"
+    clientId="256661036793-0oob0hi0k034t80e6gm3u69i84ljnvhg.apps.googleusercontent.com"
+    // buttonText="Login"
+    onSuccess={responseGoogle}
+    onFailure={responseGoogle}
+  >
+  <i class="fa fa-google-plus blue-text" />
+  </GoogleLogin>
+  </div>
+  <SocialButton class="btn btn-white btn-rounded mr-md-10 z-depth-1a"
+    provider='facebook'
+    appId='183353488972514'
+    onLoginSuccess={handleSocialLogin}
+    onLoginFailure={handleSocialLoginFailure}
+  >
+    <i class="fa fa-facebook blue-text text-center"></i>
+  </SocialButton>
+
                 </div>
 
         </div>
