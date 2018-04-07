@@ -5,20 +5,63 @@ import { Button, Input, label } from 'mdbreact';
 import SocialButton from './socialButton';
 import GoogleLogin from 'react-google-login';
 
-const handleSocialLogin = (user) => {
-  console.log(user)
+const handleSocialLogin = (FbUser) => {
+  console.log(FbUser)
+  fetch('https://jsonplaceholder.typicode.com/users', {
+method: 'POST',
+body: JSON.stringify(FbUser)
+}).then(res => res.json())
+.catch(error => console.error('Error:', error))
+.then(response => console.log('Success:', response));
 }
 
 const handleSocialLoginFailure = (err) => {
   console.error(err)
 }
 
-const responseGoogle = (response) => {
-  console.log(response);
+const responseGoogle = (GoUser) => {
+  console.log(GoUser)
+  fetch('https://jsonplaceholder.typicode.com/users', {
+method: 'POST',
+body: JSON.stringify(GoUser)
+}).then(res => res.json())
+.catch(error => console.error('Error:', error))
+.then(response => console.log('Success:', response));
 }
+
 export default class Login extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      email:'',
+      psw:'',
+    }
+ console.log(this.state.user)
+  }
 
+  handleChangeEmail = event => {
+      this.setState({ email: event.target.value });
+    }
+ handleChangePsw = event =>{
+   this.setState({ psw: event.target.value})
+ }
 
+handleSubmit = event => {
+        event.preventDefault();
+
+        const user = {
+          email: this.state.email,
+          psw: this.state.psw
+        };
+        console.log({user})
+        fetch('https://jsonplaceholder.typicode.com/users', {
+      method: 'POST',
+      body: JSON.stringify({user})
+    }).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
+
+}
   render() {
     return (
 
@@ -28,6 +71,7 @@ export default class Login extends Component {
     </div>
 
     <div class="col">
+    <form onSubmit={this.handleSubmit} >
 <section class="form-elegant">
 
     <div class="card">
@@ -39,18 +83,18 @@ export default class Login extends Component {
             </div>
 
             <div class="md-form">
-                <input type="text" id="Form-email1" class="form-control"/>
+                <input type="text" id="Form-email1" class="form-control" name="email" onChange={this.handleChangeEmail}/>
                 <label for="Form-email1">Your email</label>
             </div>
 
             <div class="md-form pb-3">
-                <input type="password" id="Form-pass1" class="form-control"/>
+                <input type="password" id="Form-pass1" class="form-control" name="psw" onChange={this.handleChangePsw}/>
                 <label for="Form-pass1">Your password</label>
                 <p class="font-small blue-text d-flex justify-content-end">Forgot <a href="#" class="blue-text ml-1"> Password?</a></p>
             </div>
 
             <div class="text-center mb-3">
-                <button type="button" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Sign in</button>
+                <button type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Sign in</button>
             </div>
             <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign in with:</p>
 
@@ -86,6 +130,7 @@ export default class Login extends Component {
     </div>
 
 </section>
+</form>
 </div>
 
 <div class="col">
