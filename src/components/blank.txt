@@ -52,3 +52,29 @@ export default class Home extends Component {
     );
   }
 }
+
+// login
+<li class="list-group-item"></li>
+<li class="list-group-item">Dapibus ac facilisis in</li>
+<li class="list-group-item">Morbi leo risus</li>
+<li class="list-group-item">Porta ac consectetur ac</li>
+<li class="list-group-item">Vestibulum at eros</li>
+//
+<div class="col-lg-6">
+  <div class="mdb-feed">
+     <div class="news">
+
+        <div class="label">
+          <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-1-mini.jpg" class="rounded-circle z-depth-1-half"/>
+         </div>
+
+       <div class="excerpt">
+         <div class="brief">
+             <a class="name" text-decoration="underline" >menna</a> created an order from
+             <a class="name">tom and basal</a>
+         </div>
+      </div>
+
+    </div>
+ </div>
+</div>
