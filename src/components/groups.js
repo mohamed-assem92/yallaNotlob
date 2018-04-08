@@ -16,7 +16,7 @@ export default class Groups extends Component {
     };
   }
   componentWillMount() {
-    fetch(`https://localhost:3001/users/1/groups`)
+    fetch(`http://localhost:3001/users/1/groups`)
       .then(response => response.json())
       .then(json => {
         let groupsArr = json;
@@ -26,7 +26,7 @@ export default class Groups extends Component {
 
   addGroup() {
     if (this.state.inputValue) {
-      fetch(`https://localhost:3001/users/1/groups`, {
+      fetch(`http://localhost:3001/users/1/groups`, {
         method: 'POST',
         body: JSON.stringify({
           name: this.state.inputValue,
@@ -56,7 +56,7 @@ export default class Groups extends Component {
 
   deleteGroup(e, gId) {
     e.preventDefault;
-    fetch(`https://localhost:3001/users/1/groups/${gId}`, {
+    fetch(`http://localhost:3001/users/1/groups/${gId}`, {
       method: 'DELETE',
 
     })
@@ -122,7 +122,7 @@ class Friends extends Component {
     };
   }
   componentWillMount() {
-    fetch(`https://localhost:3001/users/1/groups/${this.state.groupID}/users`)
+    fetch(`http://localhost:3001/users/1/groups/${this.state.groupID}/users`)
       .then(response => response.json())
       .then(json => {
         let group = json;
@@ -132,7 +132,7 @@ class Friends extends Component {
   }
   removeFriend(e, fID) {
     e.preventDefault;   
-    fetch(`https://localhost:3001/users/1/groups/${this.state.groupID}/friends/${fID}`, {
+    fetch(`http://localhost:3001/users/1/groups/${this.state.groupID}/friends/${fID}`, {
       method: 'DELETE',
     })
       .then(response => response.json())
@@ -151,12 +151,10 @@ class Friends extends Component {
 
   addFriend() {
     if (this.state.inputValue) {
-      fetch('https://jsonplaceholder.typicode.com/users', {
+      fetch(`http://localhost:3001/users/1/groups/${this.state.groupID}/friends`, {
         method: 'POST',
         body: JSON.stringify({
-          name: this.state.inputValue,
-          email: 'bar@example.com',
-          id: 90
+          name: this.state.inputValue,         
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8"
@@ -165,8 +163,14 @@ class Friends extends Component {
         .then(response => response.json())
         .then(json => {
           let newGroup = this.state.currentGroup;
-          newGroup.push(json);
-          this.setState({ currentGroup: newGroup });
+          console.log(json);
+
+          if(json.status){
+            
+            newGroup.push(json.message);
+            this.setState({ currentGroup: newGroup });
+          }
+         
         })
     }
     else {

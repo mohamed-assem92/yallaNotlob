@@ -49,14 +49,16 @@ export default class Register extends Component {
        const user = {
          name: this.state.name,
          email: this.state.email,
-         psw: this.state.psw,
-         conPsw: this.state.conPsw,
-         files: this.state.files
+         password: this.state.psw,
+        //  files: this.state.files.base64
        };
-       console.log({user})
-       fetch('https://jsonplaceholder.typicode.com/users', {
+       console.log(user)
+       fetch('http://localhost:3001/users', {
      method: 'POST',
-     body: JSON.stringify({user})
+     body: JSON.stringify(user),
+     headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => console.log('Success:', response));
@@ -64,9 +66,7 @@ export default class Register extends Component {
 
      }
 
-        event.preventDefault();
-
-
+    event.preventDefault();
   }
 
   render() {
