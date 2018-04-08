@@ -31,11 +31,11 @@ export default class Register extends Component {
         const user = {
           name: this.state.name,
           email: this.state.email,
-          psw: this.state.psw,
-          conPswpsw: this.state.conPsw
+          psw: this.state.psw,          
+        //   conPswpsw: this.state.conPsw
         };
         console.log({user})
-        fetch('https://jsonplaceholder.typicode.com/users', {
+        fetch('http://localhost:3001/users', {
       method: 'POST',
       body: JSON.stringify({user})
     }).then(res => res.json())
