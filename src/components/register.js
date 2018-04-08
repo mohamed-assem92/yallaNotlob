@@ -30,20 +30,6 @@ export default class Register extends Component {
   }
 
   handleSubmit = event => {
-<<<<<<< HEAD
-        event.preventDefault();
-
-        const user = {
-          name: this.state.name,
-          email: this.state.email,
-          psw: this.state.psw,          
-        //   conPswpsw: this.state.conPsw
-        };
-        console.log({user})
-        fetch('http://localhost:3001/users', {
-      method: 'POST',
-      body: JSON.stringify({user})
-=======
     if(this.state.psw != this.state.conPsw )
      {
 
@@ -68,7 +54,6 @@ export default class Register extends Component {
        fetch('https://localhost:3001/users', {
      method: 'POST',
      body: JSON.stringify({user})
->>>>>>> 537bf4e7fca2ace55f7d5e81e711e594ce889799
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => console.log('Success:', response));
