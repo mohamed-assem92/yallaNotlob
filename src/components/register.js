@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import FileBase64 from 'react-file-base64';
 
 
 export default class Register extends Component {
@@ -11,10 +12,11 @@ export default class Register extends Component {
       psw:'',
       conPsw:'',
       errorMsg:'',
-       pictures: []
-    }
+      files: []    }
   }
-
+  getFiles(files){
+      this.setState({ files: files })
+    }
 
   handleChangeName = event => {
       this.setState({ name: event.target.value });
@@ -48,10 +50,11 @@ export default class Register extends Component {
          name: this.state.name,
          email: this.state.email,
          psw: this.state.psw,
-         conPsw: this.state.conPsw
+         conPsw: this.state.conPsw,
+         files: this.state.files
        };
        console.log({user})
-       fetch('https://localhost:3001/users', {
+       fetch('https://jsonplaceholder.typicode.com/users', {
      method: 'POST',
      body: JSON.stringify({user})
     }).then(res => res.json())
@@ -124,7 +127,14 @@ export default class Register extends Component {
             </label>
              :''}
             </label>
+          <br/>
+          <label for="defaultFormRegisterPasswordEx" class="grey-text">Upload Your photo</label>
+
+            <FileBase64
+       multiple={ false }
+       onDone={ this.getFiles.bind(this) } />
     <div class="text-center mt-4">
+
         <button class="btn btn-blue" type="submit">Register</button>
     </div>
 </form>
