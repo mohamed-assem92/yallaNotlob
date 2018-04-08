@@ -20,7 +20,9 @@ const handleSocialLoginFailure = (err) => {
 }
 
 const responseGoogle = (GoUser) => {
-  console.log(GoUser)
+  var temp =JSON.stringify(GoUser)
+
+  console.log(temp)
   fetch('https://jsonplaceholder.typicode.com/users', {
 method: 'POST',
 body: JSON.stringify(GoUser)
@@ -90,7 +92,7 @@ handleSubmit = event => {
             <div class="md-form pb-3">
                 <input type="password" id="Form-pass1" class="form-control" name="psw" onChange={this.handleChangePsw}/>
                 <label for="Form-pass1">Your password</label>
-                <p class="font-small blue-text d-flex justify-content-end">Forgot <a href="#" class="blue-text ml-1"> Password?</a></p>
+                <p class="font-small blue-text d-flex justify-content-end">Forgot <a href="/password/forget" class="blue-text ml-1"> Password?</a></p>
             </div>
 
             <div class="text-center mb-3">

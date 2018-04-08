@@ -10,6 +10,8 @@ import Groups from '../components/groups';
 import Notifications from '../components/notifications';
 import Orders from '../components/orders';
 import ViewOrder from '../components/viewOrder';
+import ForgetPsw from '../components/forgetPsw';
+import ResetPsw from '../components/resetPsw';
 
 
 
@@ -27,6 +29,8 @@ const AppRouter =()=> (
                 <Route path="/notifications" component={Notifications}/>
                 <Route path="/orders" component={Orders}/>
                 <Route path="/viewOrder" component={ViewOrder}/>
+                <Route path="/password/forget" component={ForgetPsw}/>
+                <Route path="/password/reset" component={ResetPsw}/>
 
 
             </Switch>

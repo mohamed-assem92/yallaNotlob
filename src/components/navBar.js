@@ -27,7 +27,7 @@ export default class NavbarFeatures extends React.Component {
       .then(response => response.json())
       .then(json => {
         let currentUser = json[0]
-        this.setState({ user: currentUser })
+        this.setState({ user : currentUser })
         console.log(this.state.user);
       });
     fetch('https://jsonplaceholder.typicode.com/photos')
@@ -60,7 +60,7 @@ export default class NavbarFeatures extends React.Component {
 
   render() {
       return (
-        <Router>
+        <nav>
       <Navbar color="indigo" dark expand="md" scrolling>
         <NavbarBrand href="/">
           <strong>YallaNotlob</strong>
@@ -69,16 +69,16 @@ export default class NavbarFeatures extends React.Component {
         <Collapse isOpen={this.state.collapse} navbar>
           <NavbarNav left>
             <NavItem active>
-              <NavLink to="/home"><i className="fa fa-home" aria-hidden="true"></i>Home</NavLink>
+              <NavLink to='/home' exact activeClassName="active"><i className="fa fa-home" aria-hidden="true"></i>Home</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="#"><i className="fa fa-user-circle-o" aria-hidden="true"></i>Friends</NavLink>
+              <NavLink to="friend"><i className="fa fa-user-circle-o" aria-hidden="true"></i>Friends</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="#"><i className="fa fa-users" aria-hidden="true"></i>Groups</NavLink>
+              <NavLink to="groups"><i className="fa fa-users" aria-hidden="true"></i>Groups</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="#"><i className="fa fa-tasks" aria-hidden="true"></i>Orders</NavLink>
+              <NavLink to="orders"><i className="fa fa-tasks" aria-hidden="true"></i>Orders</NavLink>
             </NavItem>
           </NavbarNav>
           <NavbarNav right>
@@ -101,7 +101,7 @@ export default class NavbarFeatures extends React.Component {
           </NavbarNav>
         </Collapse>
       </Navbar>
-    </Router>
+    </nav>
       );
   }
 }
