@@ -15,7 +15,6 @@ export default class NavbarFeatures extends React.Component {
       isWideEnough: false,
       dropdownOpen: false,
       user: {},
-      image: {},
       count: 0,
       showNotifications: false,
     };
@@ -30,13 +29,6 @@ export default class NavbarFeatures extends React.Component {
         let currentUser = json[0]
         this.setState({ user : currentUser })
         console.log(this.state.user);
-      });
-    fetch('https://jsonplaceholder.typicode.com/photos')
-      .then(response => response.json())
-      .then(json => {
-        let currentPhoto = json[0]
-        this.setState({ image: currentPhoto })
-        console.log(this.state.image);
       });
     fetch('https://jsonplaceholder.typicode.com/posts')
       .then(response => response.json())
@@ -91,7 +83,7 @@ export default class NavbarFeatures extends React.Component {
             </NavItem>
             {this.state.showNotifications && < NotificationsDiv / >}
             <NavItem>
-              <img src={this.state.image.url} className="rounded-circle z-depth-0" height="40px" alt="avatar" />
+              <img src="https://picsum.photos/200/300/?random" className="rounded-circle z-depth-0" height="40px" alt="avatar" />
             </NavItem>
             <NavItem>
               <a className="nav-link waves-effect waves-light"><i className="fa fa-edit" aria-hidden="true"></i>{this.state.user.name}</a>

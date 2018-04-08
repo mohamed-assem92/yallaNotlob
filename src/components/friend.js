@@ -15,7 +15,7 @@ export default class Friend extends Component {
     };
   }
   componentWillMount(){
-    fetch('http://192.168.1.9:3001/users/1/friends',{
+    fetch('https://192.168.1.9:3001/users/1/friends',{
       method:'GET',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -34,7 +34,7 @@ export default class Friend extends Component {
   }
   addFriend(){
     if (this.state.inputValue) {
-      fetch('http://192.168.1.9:3001/users/1/friends', {
+      fetch('https://192.168.1.9:3001/users/1/friends', {
         method: 'POST',
         body: JSON.stringify({
           email: this.state.inputValue,
@@ -62,7 +62,7 @@ export default class Friend extends Component {
   removeFriend(e , fid){
     console.log(fid);
     e.preventDefault;
-    fetch(`http://192.168.1.9:3001/users/1/friends/${fid}`, {
+    fetch(`https://192.168.1.9:3001/users/1/friends/${fid}`, {
       method:'DELETE',
     })
     .then(res => res.json())
@@ -84,7 +84,7 @@ export default class Friend extends Component {
         return(
           <div key={uuidv4()} className="col-md-3">
           <figure className="row" key={uuidv4()}>
-            <img key={uuidv4()} src="http://i.pravatar.cc/150?img=47"  className="img-responsive img-circle"/>
+            <img key={uuidv4()} src="https://picsum.photos/200/300/?random"  className="img-responsive img-circle"/>
             <figcaption key={uuidv4()}>
             <p key={uuidv4()}>{friend.name}</p>
             <button onClick={(e)=>{this.removeFriend(e , friend.id)}} key={uuidv4()} className="btn btn-elegant waves-effect waves-light">Remove</button>
