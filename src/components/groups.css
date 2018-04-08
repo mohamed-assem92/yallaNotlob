@@ -1,0 +1,62 @@
+.header{
+  margin: auto;
+  width: 500px;
+}
+.groups{
+  border: solid 1px;
+  border-radius: 5px;
+  box-shadow: 5px 10px #888888;
+}
+.groups h3{
+  margin: auto;
+  width: 100px;
+}
+.groups input{
+  margin: auto;
+  width: 100px;
+}
+.inputs{
+  padding-bottom: 10px;
+}
+.links Links{
+  padding-bottom: 50px;
+  margin: 10px;
+}
+.addGruop{
+  display: inline;
+}
+.all{
+  position: relative;
+  top:100px;
+}
+.friends{
+  border-radius: 5px;
+}
+.friends h3{
+  margin: auto;
+  width: 100px;
+}
+.img-circle{
+  margin: auto;
+  width: 80px;
+  height: 80px;
+}
+.cardName{
+  margin: auto;
+  width: 250px;
+  color: blue;
+}
+.cardDiv{
+  border: 1px solid;
+  border-radius: 5px;
+  box-shadow: 1px 2px #888888;
+  margin-bottom: 2px;
+}
+.cardDiv Button{
+  margin: auto;
+  width: 150px;
+}
+.friends input{
+  margin: auto;
+  width: 100px;
+}
