@@ -57,15 +57,22 @@ handleSubmit = event => {
 
         const user = {
           email: this.state.email,
-          psw: this.state.psw
+          password: this.state.psw
         };
-        console.log({user})
-        fetch('https://jsonplaceholder.typicode.com/users', {
+        // console.log({user})
+        fetch('http://localhost:3001/users/login', {
       method: 'POST',
-      body: JSON.stringify({user})
+      body: JSON.stringify(user),
+      headers:{
+        "Content-type": "application/json; charset=UTF-8",
+      }
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
+    .then(response => {
+      if(response.status){
+        console.log('Success:', response);
+      }
+    });
 
 }
   render() {

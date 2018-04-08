@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import FileBase64 from 'react-file-base64';
-
+import ReactDOM from 'react-dom';
+import Login from './login';
 
 export default class Register extends Component {
   constructor(props){
@@ -61,7 +62,11 @@ export default class Register extends Component {
     }
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
+    .then(response =>{ if(response.status == true){
+      ReactDOM.render(<Login />, document.getElementById('root'));
+    }
+  }
+  );
 
 
      }
@@ -135,7 +140,7 @@ export default class Register extends Component {
        onDone={ this.getFiles.bind(this) } />
     <div class="text-center mt-4">
 
-        <button class="btn btn-blue" type="submit">Register</button>
+        <button class="btn btn-blue" onChange type="submit">Register</button>
     </div>
 </form>
 
