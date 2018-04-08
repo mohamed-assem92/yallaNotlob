@@ -1,0 +1,15 @@
+.friends{
+    margin: auto;
+    width: 200px;
+}
+.friends input{
+  margin: auto;
+  width: 200px;
+}
+.addfriend{
+  display: inline;
+}
+.img-circle{
+  width: 80px;
+  height: 80px;
+}
