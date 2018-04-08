@@ -9,9 +9,13 @@ export default class Register extends Component {
       name:'',
       email:'',
       psw:'',
-      conPsw:''
+      conPsw:'',
+      errorMsg:'',
+       pictures: []
     }
   }
+
+
   handleChangeName = event => {
       this.setState({ name: event.target.value });
     }
@@ -26,6 +30,7 @@ export default class Register extends Component {
   }
 
   handleSubmit = event => {
+<<<<<<< HEAD
         event.preventDefault();
 
         const user = {
@@ -38,9 +43,41 @@ export default class Register extends Component {
         fetch('http://localhost:3001/users', {
       method: 'POST',
       body: JSON.stringify({user})
+=======
+    if(this.state.psw != this.state.conPsw )
+     {
+
+      this.setState({errorMsg:'invalid Password'});
+
+     }else if(this.state.name=='')
+     {
+      this.setState({errorMsg:'User Name is Required'});
+     }
+     else if(this.state.email=='')
+     {
+      this.setState({errorMsg:'Email is Required'});
+     }
+     else{
+       const user = {
+         name: this.state.name,
+         email: this.state.email,
+         psw: this.state.psw,
+         conPsw: this.state.conPsw
+       };
+       console.log({user})
+       fetch('https://localhost:3001/users', {
+     method: 'POST',
+     body: JSON.stringify({user})
+>>>>>>> 537bf4e7fca2ace55f7d5e81e711e594ce889799
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => console.log('Success:', response));
+
+
+     }
+
+        event.preventDefault();
+
 
   }
 
@@ -54,53 +91,68 @@ export default class Register extends Component {
 
 <div class="col">
 
-<div class="card">
 
-    <div class="card-body">
-
-        <form onSubmit={this.handleSubmit}>
-            <p class="h4 text-center py-4">Sign up</p>
-
-            <div class="md-form">
-                <i class="fa fa-user prefix grey-text"></i>
-                <input type="text" id="materialFormCardNameEx" class="form-control" name="name" onChange={this.handleChangeName}/>
-                <label for="materialFormCardNameEx" class="font-weight-light">Your name</label>
-            </div>
-
-            <div class="md-form">
-                <i class="fa fa-envelope prefix grey-text"></i>
-                <input type="email" id="materialFormCardEmailEx" class="form-control" name="email" onChange={this.handleChangeEmail} />
-                <label for="materialFormCardEmailEx" class="font-weight-light">Your email</label>
-            </div>
+<form onSubmit={this.handleSubmit}>
+    <p class="h4 text-center mb-4">Sign up</p>
 
 
-            <div class="md-form">
-                <i class="fa fa-lock prefix grey-text"></i>
-                <input type="password" id="materialFormCardPasswordEx" class="form-control" name="psw" onChange={this.handleChangePsw} />
-                <label for="materialFormCardPasswordEx" class="font-weight-light">Your password</label>
-            </div>
+    <label for="defaultFormRegisterNameEx" class="grey-text">Your name</label>
+    <input name="name" onChange={this.handleChangeName} type="text" id="defaultFormRegisterNameEx" class="form-control" />
+    <label>
+            { this.state.errorMsg =='User Name is Required'?
+            <label>
+             {this.state.errorMsg}
+            </label>
+             :''}
+            </label>
+    <br/>
 
-            <div class="md-form">
-                <i class="fa fa-lock prefix grey-text"></i>
-                <input type="password" id="materialFormCardPasswordEx" class="form-control" name="conPsw" onChange={this.handleChangeConfPsw}/>
-                <label for="materialFormCardPasswordEx" class="font-weight-light">Confirm Your password</label>
-            </div>
 
-            <div class="text-center py-4 mt-3">
-                <button class="btn btn-blue" type="submit">Register</button>
-            </div>
-        </form>
+    <label for="defaultFormRegisterEmailEx" class="grey-text">Your email</label>
+    <input name="email" onChange={this.handleChangeEmail} type="email" id="defaultFormRegisterEmailEx" class="form-control" />
+    <label>
+            { this.state.errorMsg =='Email is Required'?
+            <label>
+             {this.state.errorMsg}
+            </label>
+             :''}
+            </label>
+    <br/>
 
+    <label for="defaultFormRegisterPasswordEx" class="grey-text">Your password</label>
+    <input name="psw" onChange={this.handleChangePsw} type="password" id="defaultFormRegisterPasswordEx" class="form-control" />
+    <label>
+            { this.state.errorMsg =='invalid Password'?
+            <label>
+             {this.state.errorMsg}
+            </label>
+             :''}
+            </label>
+    <br/>
+
+    <label for="defaultFormRegisterPasswordEx" class="grey-text">Confirm Your password</label>
+    <input name="conPsw" onChange={this.handleChangeConfPsw} type="password" id="defaultFormRegisterConPasswordEx" class="form-control" />
+    <label>
+            { this.state.errorMsg =='invalid Password'?
+            <label>
+             {this.state.errorMsg}
+            </label>
+             :''}
+            </label>
+    <div class="text-center mt-4">
+        <button class="btn btn-blue" type="submit">Register</button>
     </div>
+</form>
+
 
 </div>
+
 
 
 <div class="col">
     </div>
 
     </div>
-</div>
 
     );
   }

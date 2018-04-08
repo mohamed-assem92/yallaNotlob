@@ -4,6 +4,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Button, Input, label } from 'mdbreact';
 import SocialButton from './socialButton';
 import GoogleLogin from 'react-google-login';
+import {reactLocalStorage} from 'reactjs-localstorage';
+
+reactLocalStorage.set('var', true);
+reactLocalStorage.get('var', true);
 
 const handleSocialLogin = (FbUser) => {
   console.log(FbUser)
