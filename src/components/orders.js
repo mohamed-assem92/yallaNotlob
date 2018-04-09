@@ -9,6 +9,7 @@ export default class Orders extends Component {
     super(props);
     this.state = {
       ordersArray: [],
+      waitingOrder:false,
     };
   }
   componentWillMount(){
@@ -20,8 +21,54 @@ export default class Orders extends Component {
     })
       .then(response => response.json())
       .then(json => {
+        console.log(json);
         this.setState({ ordersArray: json})
       });
+  }
+  finishOrder(e , orderID){
+    e.preventDefault();
+    fetch(`http://192.168.1.9:3001/users/1/orders/${orderID}`,{
+      method:'PATCH',
+      headers:{
+        "Content-type": "application/json; charset=UTF-8",
+      }
+    })
+      .then(response => response.json())
+      .then(json => {
+        if (json.status) {
+          fetch('http://192.168.1.9:3001/users/1/orders',{
+            method:'GET',
+            headers:{
+              "Content-type": "application/json; charset=UTF-8",
+            }
+          })
+            .then(response => response.json())
+            .then(json => {
+              this.setState({ ordersArray: json})
+            });
+        }
+      });
+  }
+  cancelOrder(e , orderID){
+    e.preventDefault();
+    fetch(`http://192.168.1.9:3001/users/1/orders/${orderID}`, {
+      method:'DELETE',
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status) {
+        fetch('http://192.168.1.9:3001/users/1/orders',{
+          method:'GET',
+          headers:{
+            "Content-type": "application/json; charset=UTF-8",
+          }
+        })
+          .then(response => response.json())
+          .then(json => {
+            this.setState({ ordersArray: json})
+          });
+      }
+    })
   }
   render() {
     return (
@@ -51,7 +98,14 @@ export default class Orders extends Component {
             <td  key={uuidv4()}>{order.invited}</td>
             <td  key={uuidv4()}>{order.joined}</td>
             <td  key={uuidv4()}>{order.state}</td>
-
+            {order.state === "waiting" && <td  key={uuidv4()}>
+              <Link key={uuidv4()} to={`/viewOrder/${order.id}`} className="active">View</Link><br />
+              <Link onClick={(e)=>{this.finishOrder(e , order.id)}} key={uuidv4()} to='/finishOrder' className="active">Finish</Link><br />
+              <Link onClick={(e)=>{this.cancelOrder(e , order.id)}} key={uuidv4()} to='/cancelOrder' className="active">Cancel</Link>
+            </td>}
+            {order.state === "finished" && <td  key={uuidv4()}>
+                <Link key={uuidv4()} to={`/viewOrder/${order.id}`} className="active">View</Link><br />
+            </td>}
         </tr>
       );
     })}

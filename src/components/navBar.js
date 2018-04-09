@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
-// import '../App.css';
-import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink ,Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Home from './home';
+import React from 'react';
+import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink } from 'mdbreact';
 import NotificationBadge from 'react-notification-badge';
 import { Effect } from 'react-notification-badge';
 import { Link } from "react-router-dom";
 import { Route, Redirect } from 'react-router'
 
 import ActionCable from 'action-cable-react-jwt';
+import './navBar.css';
+
 import {reactLocalStorage} from 'reactjs-localstorage';
 import ReactDOM from 'react-dom';
 import Login from './login';
+const uuidv4 = require('uuid/v4');
+
 
 export default class NavbarFeatures extends React.Component {
   constructor(props) {
@@ -24,7 +25,8 @@ export default class NavbarFeatures extends React.Component {
       count: 0,
       showNotifications: false,
       userId : localStorage.getItem("user_id"),
-      token : localStorage.getItem("token")
+      token : localStorage.getItem("token"),
+      notifications:[],
     };
   this.onClick = this.onClick.bind(this);
   this.toggle = this.toggle.bind(this);
@@ -57,8 +59,7 @@ export default class NavbarFeatures extends React.Component {
 
     fetch(`http://localhost:3001/users/${this.state.userId}/notifications/new`)
       .then(response => response.json())
-      .then(json => { console.log( json);
-       this.setState({ count: json.count }) });
+      .then(json => { this.setState({ count: json.count , notifications:json.notifications}) });
   }
 
   onClick(){
@@ -99,13 +100,13 @@ export default class NavbarFeatures extends React.Component {
               <NavLink to='/home' exact activeClassName="active"><i className="fa fa-home" aria-hidden="true"></i>Home</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="friend"><i className="fa fa-user-circle-o" aria-hidden="true"></i>Friends</NavLink>
+              <NavLink exact to="/friend"><i className="fa fa-user-circle-o" aria-hidden="true"></i>Friends</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="groups"><i className="fa fa-users" aria-hidden="true"></i>Groups</NavLink>
+              <NavLink exact to="/groups"><i className="fa fa-users" aria-hidden="true"></i>Groups</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="orders"><i className="fa fa-tasks" aria-hidden="true"></i>Orders</NavLink>
+              <NavLink exact to="/orders"><i className="fa fa-tasks" aria-hidden="true"></i>Orders</NavLink>
             </NavItem>
           </NavbarNav>
           <NavbarNav right>
@@ -115,7 +116,7 @@ export default class NavbarFeatures extends React.Component {
             <NavItem>
               <a onClick={this.notificationsClicked.bind(this)} className="nav-link waves-effect waves-light"><i className="fa fa-bell" aria-hidden="true"></i></a>
             </NavItem>
-            {this.state.showNotifications && < NotificationsDiv / >}
+
             <NavItem>
               <img src="http://picsum.photos/200/300/?random" className="rounded-circle z-depth-0" height="40px" alt="avatar" />
             </NavItem>
@@ -128,36 +129,44 @@ export default class NavbarFeatures extends React.Component {
           </NavbarNav>
         </Collapse>
       </Navbar>
+      {this.state.showNotifications && < NotificationsDiv nots={this.state.notifications}/ >}
     </nav>
       );
   }
 }
 
 class NotificationsDiv extends React.Component{
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      dropdownOpen: true,
+      notifications: this.props.nots,
     }
-
-    this.toggle = this.toggle.bind(this);
   }
-  toggle() {
-      this.setState({
-          dropdownOpen: !this.state.dropdownOpen
-      });
+  componentWillMount(){
+    console.log(this.state.notifications);
   }
   render(){
+
     return(
-      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                              <DropdownToggle>Notifications</DropdownToggle>
-                              <DropdownMenu>
-                                  <DropdownItem href="#">Action</DropdownItem>
-                                  <DropdownItem href="#">Another Action</DropdownItem>
-                                  <DropdownItem href="#">Something else here</DropdownItem>
-                                  <DropdownItem href="#">Something else here</DropdownItem>
-                      </DropdownMenu>
-      </Dropdown>
+  <div className="row">
+    <div className="col-md-6">
+    </div>
+    <div className="nots col-md-4 pull-right">
+        <ul>
+        {this.state.notifications.map((notification)=>{
+          return(
+            <li key={uuidv4()}>
+            {notification.notif_type === "invite" && <Link key={uuidv4()} to={`/viewOrder/${notification.order_id}`}>{notification.name+" "+"has invited you to his order"}</Link>}
+            {notification.notif_type === "join" && <Link key={uuidv4()} to={`/viewOrder/${notification.order_id}`}>{notification.name+" "+"has Joined Your Order Click Here to View"}</Link>}
+            </li>
+          );
+        })}
+        <li>
+          <Link to="/notifications">View All Notifications</Link>
+        </li>
+        </ul>
+      </div>
+    </div>
     );
   }
 }

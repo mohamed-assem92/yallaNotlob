@@ -76,9 +76,9 @@ componentWillMount(){
            <div className="row">
 
            {this.state.friendsArr.map(function(friend, index){
-                    return  <div className="col-lg-6" key={uuidv4()}>
-                       <div className="mdb-feed">
-                          <div className="news">
+                    return  <div key={uuidv4()} className="col-lg-6">
+                       <div key={uuidv4()} className="mdb-feed">
+                          <div key={uuidv4()} className="news">
 
                              <div className="label">
                                <img src="http://mdbootstrap.com/img/Photos/Avatars/avatar-1-mini.jpg" className="rounded-circle z-depth-1-half"/>
