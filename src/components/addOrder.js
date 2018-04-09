@@ -1,24 +1,36 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { Button, Input, label } from 'mdbreact';
+import FileBase64 from 'react-file-base64';
 
 import "./addOrder.css";
+const uuidv4 = require('uuid/v4');
 
 
 export default class AddOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      file:null,
       friendsArray: [],
       groupsArray:[],
       friendsResult:[],
       groupsResult:[],
       invitaionResult:[],
+      files:"",
+      currentChoosen:[],
+      showError:false,
+      showSuccess:false,
+      serverMessage:"",
+      userId : localStorage.getItem("user_id"),
+      token : localStorage.getItem("token")
     };
   }
+  getFiles(files){
+    this.setState({ files: files })
+    console.log(files);
+  }
   componentWillMount(){
-    fetch('http://192.168.1.9:3001/users/1/friends',{
+    fetch(`http://localhost:3001/users/${this.state.userId}/friends`,{
       method:'GET',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -29,62 +41,76 @@ export default class AddOrder extends Component {
         let friendsArr = json;
         this.setState({ friendsArray:friendsArr })
       });
-    fetch(`http://192.168.1.9:3001/users/1/groups`)
+    fetch(`http://localhost:3001/users/${this.state.userId}/groups`)
         .then(response => response.json())
         .then(json => {
           let groupsArr = json;
           this.setState({ groupsArray: groupsArr })
       });
   }
-  uploadImage(e){
-    this.setState({file:e.target.files[0]});
-  }
   handleInput(e){
     // if (e.key === "Spacebar") {
-      this.setState({friendsResult:[],groupsResult:[]})
+      let myData = [];
+      this.setState({friendsResult:[],groupsResult:[],invitaionResult:[]})
       let wantToAdd = e.target.value.split(" ");
       for (var i = 0; i < wantToAdd.length; i++) {
         for (var y = 0; y < this.state.friendsArray.length; y++) {
           if (this.state.friendsArray[y].name == wantToAdd[i]) {
             this.state.friendsResult.push(this.state.friendsArray[y]);
+            this.state.currentChoosen.push(this.state.friendsArray[y].name);
           }
         }
         for (var k = 0; k < this.state.groupsArray.length; k++) {
           if (this.state.groupsArray[k].name == wantToAdd[i]) {
             this.state.groupsResult.push(this.state.groupsArray[k].id);
+            this.state.currentChoosen.push(this.state.groupsArray[k].name);
           }
         }
       }
       if (this.state.groupsResult.length > 0) {
-        console.log("here");
+        this.setState({invitaionResult:[]})
         let groupUsers = this.state.friendsResult;
-        let myData = [];
+
         this.state.groupsResult.forEach((group , i)=>{
-          fetch(`http://192.168.1.9:3001/users/1/groups/${this.state.groupsResult[i]}/users`)
+          fetch(`http://localhost:3001/users/${this.state.userId}/groups/${this.state.groupsResult[i]}/users`)
               .then(response => response.json())
               .then(json => {
                 groupUsers = groupUsers.concat(json);
                 myData = groupUsers;
                 groupUsers = Array.from(new Set(myData.map(JSON.stringify))).map(JSON.parse);
                 this.setState({invitaionResult:groupUsers});
-                console.log(this.state.invitaionResult);
+                // console.log(this.state.invitaionResult);
             });
         })
       }
-    // }
+      else {
+        this.setState({invitaionResult:[]})
+        if (this.state.friendsResult.length > 0) {
+          myData = this.state.friendsResult;
+          var myArray = Array.from(new Set(myData.map(JSON.stringify))).map(JSON.parse);
+          for (var i = 0; i < myArray.length; i++) {
+            this.state.invitaionResult.push(myArray[i]);
+          }
+      }
   }
+  var unique = this.state.currentChoosen.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
+  this.setState({currentChoosen:unique});
+
+}
+
   handleSubmit(e){
     e.preventDefault();
     var orderFor = this.refs.orderFor.value;
     var resturant = e.target.resturantName.value;
     var invited = this.state.invitaionResult;
+    var image = this.state.files.base64;
     var body = {
       order_for: orderFor,
       friends:invited,
       restaurant:resturant,
-      menu_img:"img"
+      menu_img:image
     }
-    fetch('http://192.168.1.9:3001/users/1/orders',{
+    fetch(`http://localhost:3001/users/${this.state.userId}/orders`,{
       method:'POST',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -92,8 +118,28 @@ export default class AddOrder extends Component {
       body:JSON.stringify(body)
     })
       .then(response => response.json())
-      .then(json => {console.log(json)});
+      .then(json => {
+        if (json.status) {
+          this.setState({showSuccess:true,serverMessage:json.message});
+        }
+        else {
+          this.setState({showError:true,serverMessage:json.message});
+        }
+      });
   }
+  removeSelected(e){
+    this.setState({invitaionResult:[]})
+    let ev = {target:{value:""}};
+    let index = this.state.currentChoosen.indexOf(e.target.id);
+    let arr = delete this.state.currentChoosen[index];
+    this.setState({currentChoosen:this.state.currentChoosen});
+    ev.target.value = this.state.currentChoosen.join(" ");
+    this.handleInput(ev);
+    let dataArray = Array.from(new Set(this.state.invitaionResult.map(JSON.stringify))).map(JSON.parse);
+    console.log(dataArray);
+    this.setState({invitaionResult:dataArray});
+  }
+
   render() {
     return (
 
@@ -129,10 +175,13 @@ export default class AddOrder extends Component {
         <div className="row">
         <br/>
           <div className="col-md-3">
+
           <label htmlFor="select"><b>Menu Image:</b></label>
           </div>
           <div className="col-md-9">
-            <input className="btn btn-elegant waves-effect waves-light" type="file" onChange={(e)=>{this.uploadImage(e)}}/>
+          <FileBase64
+            multiple={ false }
+            onDone={ this.getFiles.bind(this) } />
           </div>
         </div>
         <button type="submit" className="btn btn-indigo waves-effect waves-light pull-right">Publish</button>
@@ -140,7 +189,20 @@ export default class AddOrder extends Component {
       </div>
       <div className="invitedFriends col-md-6">
       <h3>Invited Groups&Friends</h3>
+      <div className="row">
+        {this.state.currentChoosen.map((choose) => {
+          return(
+              <div key={uuidv4()} className="col-md-6">
+              <h4 key={uuidv4()} className="center" >{choose}</h4>
+              <button id={choose} onClick={(e)=>{this.removeSelected(e)}} key={uuidv4()} className="btn btn-indigo waves-effect waves-light pull-right">Remove</button>
+            </div>
+          );
+        })}
+        </div>
+
       </div>
+      {this.state.showError && <div className="alert alert-danger">{this.state.serverMessage}</div>}
+      {this.state.showSuccess && <div className="alert alert-success">{this.state.serverMessage}</div>}
     </div>
 
   </div>

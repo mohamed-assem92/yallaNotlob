@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, CardBody, CardImage, CardTitle, CardText } from 'mdbreact';
+import { Button, Card, CardBody, CardImage, CardTitle } from 'mdbreact';
 import { Link } from "react-router-dom";
 import "./groups.css";
 const uuidv4 = require('uuid/v4');
@@ -13,10 +13,12 @@ export default class Groups extends Component {
       inputValue: '',
       showOneGroup: false,
       currentGroupID: 0,
+      userId : localStorage.getItem("user_id"),
+      token : localStorage.getItem("token")
     };
   }
   componentWillMount() {
-    fetch(`http://192.168.1.9:3001/users/1/groups`)
+    fetch(`http://localhost:3001/users/${this.state.userId}/groups`)
       .then(response => response.json())
       .then(json => {
         let groupsArr = json;
@@ -26,7 +28,7 @@ export default class Groups extends Component {
 
   addGroup() {
     if (this.state.inputValue) {
-      fetch(`http://192.168.1.9:3001/users/1/groups`, {
+      fetch(`http://localhost:3001/users/${this.state.userId}/groups`, {
         method: 'POST',
         body: JSON.stringify({
           name: this.state.inputValue,
@@ -56,7 +58,7 @@ export default class Groups extends Component {
 
   deleteGroup(e, gId) {
     e.preventDefault;
-    fetch(`http://192.168.1.9:3001/users/1/groups/${gId}`, {
+    fetch(`http://localhost:3001/users/${this.state.userId}/groups/${gId}`, {
       method: 'DELETE',
 
     })
@@ -119,20 +121,25 @@ class Friends extends Component {
       groupID: this.props.gid,
       currentGroup: [],
       inputValue: '',
+      userId : localStorage.getItem("user_id"),
+      token : localStorage.getItem("token")
     };
   }
+
   componentWillMount() {
-    fetch(`http://192.168.1.9:3001/users/1/groups/${this.state.groupID}/users`)
+    fetch(`http://localhost:3001/users/1/groups/${this.state.groupID}/users`)
       .then(response => response.json())
       .then(json => {
-        let group = json;
-        this.setState({ currentGroup: group })
-        // console.log(this.state.currentGroup);
+        if(json.status){
+          let group = json.users;
+          this.setState({ currentGroup: group })
+        }        
       });
   }
+
   removeFriend(e, fID) {
     e.preventDefault;
-    fetch(`http://192.168.1.9:3001/users/1/groups/${this.state.groupID}/friends/${fID}`, {
+    fetch(`http://localhost:3001/users/${this.state.userId}/groups/${this.state.groupID}/friends/${fID}`, {
       method: 'DELETE',
     })
       .then(response => response.json())
@@ -151,7 +158,7 @@ class Friends extends Component {
 
   addFriend() {
     if (this.state.inputValue) {
-      fetch(`http://192.168.1.9:3001/users/1/groups/${this.state.groupID}/friends`, {
+      fetch(`http://localhost:3001/users/${this.state.userId}/groups/${this.state.groupID}/friends`, {
         method: 'POST',
         body: JSON.stringify({
           name: this.state.inputValue,
@@ -163,10 +170,11 @@ class Friends extends Component {
         .then(response => response.json())
         .then(json => {
           let newGroup = this.state.currentGroup;
-          console.log(json);
+          console.log("yaaa " + json);
 
           if(json.status){
-
+            console.log("ddddddddddddddd");
+            
             newGroup.push(json.message);
             this.setState({ currentGroup: newGroup });
           }
