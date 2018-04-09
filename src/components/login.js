@@ -70,7 +70,7 @@ handleSubmit = event => {
     .catch(error => console.error('Error:', error))
     .then(response => {
       if(response.status){
-        reactLocalStorage.set(response.token, true);
+        reactLocalStorage.set(response, true);
       }
     });
 
