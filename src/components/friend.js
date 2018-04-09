@@ -25,8 +25,11 @@ export default class Friend extends Component {
     })
       .then(response => response.json())
       .then(json => {
-        let friendsArr = json;
-        this.setState({ friendsArray:friendsArr })
+        if(json.status){
+          let friendsArr = json.message;
+          this.setState({ friendsArray:friendsArr })
+        }
+       
       });
   }
   updateInputValue(e) {

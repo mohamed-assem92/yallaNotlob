@@ -33,13 +33,13 @@ export default class NavbarFeatures extends React.Component {
   }
 
   componentWillMount() {
-    isLogged(){
-      let loggedUser = localStorage.getItem('user_id');
-      if(!loggedUser){
-        ReactDOM.render(<Login />, document.getElementById('root'));
-
-      }
-    }
+    // isLogged(){
+    //   let loggedUser = localStorage.getItem('user_id');
+    //   if(!loggedUser){
+    //     ReactDOM.render(<Login />, document.getElementById('root'));
+    //
+    //   }
+    // }
     let app = {};
     app.cable = ActionCable.createConsumer(`ws://localhost:3001/cable?token=${this.state.token}`)
 
@@ -48,7 +48,9 @@ export default class NavbarFeatures extends React.Component {
       disconnected: function() { console.log("cable: disconnected") },       // onDisconnect
       received: (data) => {
         console.log("cable received: ", data);
-        this.setState({ count : this.state.count + 1 })
+        let newNotifications = this.state.notifications;
+        newNotifications.push(data);
+        this.setState({ count : this.state.count + 1, notifications : newNotifications })
       }
     })
 
@@ -82,7 +84,16 @@ export default class NavbarFeatures extends React.Component {
   }
 
   notificationsClicked(){
-    this.setState({showNotifications: !this.state.showNotifications})
+    fetch(`http://localhost:3001/users/${this.state.userId}/notifications`,{
+      method:'PATCH',
+      headers:{
+        "Content-type": "application/json; charset=UTF-8",
+      }
+    }).then(response => response.json())
+    .then(json => {
+      this.setState({showNotifications: !this.state.showNotifications, count : 0})
+
+    })
   }
   handleLogOut(){
     reactLocalStorage.clear();
