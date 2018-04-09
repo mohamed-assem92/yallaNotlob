@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "action-cable-react-jwt": "0.0.5",
+    "ajv": "^6.4.0",
     "bootstrap": "^4.0.0",
     "font-awesome": "^4.7.0",
     "mdbreact": "^4.2.0",
