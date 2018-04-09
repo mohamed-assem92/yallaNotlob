@@ -27,7 +27,7 @@ export default class NavbarFeatures extends React.Component {
   }
 
   componentWillMount() {
-    fetch(`http://localhost:3001/users/1`)
+    fetch(`http://192.168.1.9:3001/users/1`)
       .then(response => response.json())
       .then(json => {
         if(json.status){
@@ -37,7 +37,7 @@ export default class NavbarFeatures extends React.Component {
         }
 
       });
-    fetch(`http://localhost:3001/users/3/notifications/new`)
+    fetch(`http://192.168.1.9:3001/users/3/notifications/new`)
       .then(response => response.json())
       .then(json => { this.setState({ count: json.count }) });
   }
