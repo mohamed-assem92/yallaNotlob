@@ -7,6 +7,9 @@ import NotificationBadge from 'react-notification-badge';
 import { Effect } from 'react-notification-badge';
 import { Link } from "react-router-dom";
 import ActionCable from 'action-cable-react-jwt';
+import {reactLocalStorage} from 'reactjs-localstorage';
+import ReactDOM from 'react-dom';
+import Login from './login';
 
 export default class NavbarFeatures extends React.Component {
   constructor(props) {
@@ -24,7 +27,7 @@ export default class NavbarFeatures extends React.Component {
   }
 
   componentWillMount() {
-    fetch(`http://localhost:3001/users/1`)
+    fetch(`http://192.168.1.9:3001/users/1`)
       .then(response => response.json())
       .then(json => {
         if(json.status){
@@ -32,9 +35,9 @@ export default class NavbarFeatures extends React.Component {
           this.setState({ user : currentUser })
           console.log(this.state.user);
         }
-       
+
       });
-    fetch(`http://localhost:3001/users/3/notifications/new`)
+    fetch(`http://192.168.1.9:3001/users/3/notifications/new`)
       .then(response => response.json())
       .then(json => { this.setState({ count: json.count }) });
   }
@@ -53,6 +56,10 @@ export default class NavbarFeatures extends React.Component {
 
   notificationsClicked(){
     this.setState({showNotifications: !this.state.showNotifications})
+  }
+  handleLogOut(){
+    reactLocalStorage.clear;
+    ReactDOM.render(<Login />, document.getElementById('root'));
   }
 
   render() {
@@ -93,7 +100,7 @@ export default class NavbarFeatures extends React.Component {
               <a className="nav-link waves-effect waves-light"><i className="fa fa-edit" aria-hidden="true"></i>{this.state.user.name}</a>
             </NavItem>
             <NavItem>
-              <a className="nav-link waves-effect waves-light"><i className="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+              <button color="white" onClick={this.handleLogOut} className="nav-link waves-effect waves-light"><i className="fa fa-sign-out" aria-hidden="true"></i>Logout</button>
             </NavItem>
           </NavbarNav>
         </Collapse>

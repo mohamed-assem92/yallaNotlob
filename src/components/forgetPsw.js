@@ -52,9 +52,9 @@ export default class ForgetPsw extends Component{
       <div class="col">
       <form onSubmit={this.handleSubmit}>
       <div class="md-form">
-    <i class="fa fa-envelope prefix"></i>
-    <input type="email" id="inputValidationEx" class="form-control validate" name="email" onChange={this.handleChangeEmail}/>
-    <label for="inputValidationEx" data-error="wrong" data-success="right">Enter your email</label>
+      <label for="defaultFormLoginEmailEx" class="grey-text">Your email</label>
+      <input name="email" onChange={this.handleChangeEmail} type="email" id="defaultFormLoginEmailEx" class="form-control"/>
+
 </div>
 <div class="text-center mt-4">
     <button class="btn btn-indigo" type="submit">Send Email</button>

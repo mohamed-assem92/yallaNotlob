@@ -15,7 +15,7 @@ export default class Friend extends Component {
     };
   }
   componentWillMount(){
-    fetch('http://localhost:3001/users/1/friends',{
+    fetch('http://192.168.1.9:3001/users/1/friends',{
       method:'GET',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -34,7 +34,7 @@ export default class Friend extends Component {
   }
   addFriend(){
     if (this.state.inputValue) {
-      fetch('http://localhost:3001/users/1/friends', {
+      fetch('http://192.168.1.9:3001/users/1/friends', {
         method: 'POST',
         body: JSON.stringify({
           email: this.state.inputValue,
@@ -62,7 +62,7 @@ export default class Friend extends Component {
   removeFriend(e , fid){
     console.log(fid);
     e.preventDefault;
-    fetch(`http://localhost:3001/users/1/friends/${fid}`, {
+    fetch(`http://192.168.1.9:3001/users/1/friends/${fid}`, {
       method:'DELETE',
     })
     .then(res => res.json())
@@ -76,6 +76,7 @@ export default class Friend extends Component {
       Friends
       </h1>
       <span className="row inputs">
+      <label htmlFor="add"><b>Add Friend:</b></label>
         <input require="true" type="email" onChange={this.updateInputValue.bind(this)} className="addfriend form-control col-md-6" /><input type="button" onClick={this.addFriend.bind(this)} className="addfriend btn btn-primary pull-right" value="Add"/>
       </span>
       {this.state.showError && <div className="alert alert-danger">{this.state.errorMessage}</div>}

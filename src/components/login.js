@@ -7,9 +7,8 @@ import GoogleLogin from 'react-google-login';
 import {reactLocalStorage} from 'reactjs-localstorage';
 import ReactDOM from 'react-dom';
 import Home from './home';
-
-reactLocalStorage.set('var', true);
-reactLocalStorage.get('var', true);
+// reactLocalStorage.set('var', true);
+// reactLocalStorage.get('var', true);
 
 const handleSocialLogin = (FbUser) => {
   console.log(FbUser)

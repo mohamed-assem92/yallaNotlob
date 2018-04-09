@@ -32,7 +32,7 @@ componentWillMount(){
         this.setState({ ordersArr:ordersArr })
         console.log(ordersArr);
       });
-      
+
 }
   render() {
     const names=[1,2,3];

@@ -62,7 +62,7 @@ export default class Register extends Component {
     }
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
-    .then(response =>{ if(response.status == true){
+    .then(response =>{ if(response.status){
       ReactDOM.render(<Login />, document.getElementById('root'));
     }
   }
