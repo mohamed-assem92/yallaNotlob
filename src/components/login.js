@@ -72,8 +72,7 @@ handleSubmit = event => {
     .then(response => {
       if(response.status){
         localStorage.setItem('token', response.token);
-        localStorage.setItem('user_id', response.user_id);
-        
+        localStorage.setItem('user_id', response.user_id);        
         ReactDOM.render(<Home />, document.getElementById('root'));
       }
     });
