@@ -38,7 +38,7 @@ export default class AddOrder extends Component {
     })
       .then(response => response.json())
       .then(json => {
-        let friendsArr = json;
+        let friendsArr = json.message;
         this.setState({ friendsArray:friendsArr })
       });
     fetch(`http://localhost:3001/users/${this.state.userId}/groups`)
@@ -88,9 +88,10 @@ export default class AddOrder extends Component {
         if (this.state.friendsResult.length > 0) {
           myData = this.state.friendsResult;
           var myArray = Array.from(new Set(myData.map(JSON.stringify))).map(JSON.parse);
-          for (var i = 0; i < myArray.length; i++) {
-            this.state.invitaionResult.push(myArray[i]);
-          }
+          // for (var i = 0; i < myArray.length; i++) {
+          //   this.state.invitaionResult.push(myArray[i]);
+          // }
+          this.setState({invitaionResult : myArray})
       }
   }
   var unique = this.state.currentChoosen.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
