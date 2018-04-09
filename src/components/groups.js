@@ -64,11 +64,7 @@ export default class Groups extends Component {
 
   deleteGroup(e, gId) {
     e.preventDefault;
-<<<<<<< HEAD
     fetch(`http://192.168.1.9:3001/users/1/groups/${gId}`, {
-=======
-    fetch(`http://localhost:3001/users/1/groups/${gId}`, {
->>>>>>> 6ffd9fc00cf91aca8301843388c27013d1641c55
       method: 'DELETE',
 
     })
