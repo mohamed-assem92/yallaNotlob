@@ -5,6 +5,8 @@ import { Button, Input, label } from 'mdbreact';
 import SocialButton from './socialButton';
 import GoogleLogin from 'react-google-login';
 import {reactLocalStorage} from 'reactjs-localstorage';
+import ReactDOM from 'react-dom';
+import Home from './home';
 
 reactLocalStorage.set('var', true);
 reactLocalStorage.get('var', true);
@@ -71,6 +73,7 @@ handleSubmit = event => {
     .then(response => {
       if(response.status){
         reactLocalStorage.set(response.token, true);
+        ReactDOM.render(<Home />, document.getElementById('root'));
       }
     });
 
@@ -84,66 +87,51 @@ handleSubmit = event => {
     </div>
 
     <div class="col">
-    <form onSubmit={this.handleSubmit} >
-<section class="form-elegant">
 
-    <div class="card">
 
-        <div class="card-body mx-4">
 
-            <div class="text-center">
-                <h3 class="dark-grey-text mb-5"><strong>Sign in</strong></h3>
-            </div>
 
-            <div class="md-form">
-                <input type="text" id="Form-email1" class="form-control" name="email" onChange={this.handleChangeEmail}/>
-                <label for="Form-email1">Your email</label>
-            </div>
+    <form onSubmit={this.handleSubmit}>
+        <p class="h4 text-center mb-4">Sign in</p>
 
-            <div class="md-form pb-3">
-                <input type="password" id="Form-pass1" class="form-control" name="psw" onChange={this.handleChangePsw}/>
-                <label for="Form-pass1">Your password</label>
-                <p class="font-small blue-text d-flex justify-content-end">Forgot <a href="/password/forget" class="blue-text ml-1"> Password?</a></p>
-            </div>
 
-            <div class="text-center mb-3">
-                <button type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Sign in</button>
-            </div>
-            <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign in with:</p>
+        <label for="defaultFormLoginEmailEx" class="grey-text">Your email</label>
+        <input name="email" onChange={this.handleChangeEmail} type="email" id="defaultFormLoginEmailEx" class="form-control"/>
 
-                <div class="row my-3 d-flex justify-content-center">
-                <div>
+        <br/>
 
-    <GoogleLogin  class="btn btn-white btn-rounded z-depth-1a"
-    clientId="256661036793-0oob0hi0k034t80e6gm3u69i84ljnvhg.apps.googleusercontent.com"
-    // buttonText="Login"
-    onSuccess={responseGoogle}
-    onFailure={responseGoogle}
-  >
-  <i class="fa fa-google-plus blue-text" />
-  </GoogleLogin>
-  </div>
-  <SocialButton class="btn btn-white btn-rounded mr-md-10 z-depth-1a"
-    provider='facebook'
-    appId='183353488972514'
-    onLoginSuccess={handleSocialLogin}
-    onLoginFailure={handleSocialLoginFailure}
-  >
-    <i class="fa fa-facebook blue-text text-center"></i>
-  </SocialButton>
 
-                </div>
+        <label for="defaultFormLoginPasswordEx" class="grey-text">Your password</label>
+        <input name="psw" onChange={this.handleChangePsw} type="password" id="defaultFormLoginPasswordEx" class="form-control"/>
+        <p class="font-small blue-text d-flex justify-content-end">Forgot <a href="/password/forget" class="blue-text ml-1"> Password?</a></p>
 
+        <div class="text-center mt-4">
+            <button class="btn btn-indigo" type="submit">Login</button>
         </div>
 
-        <div class="modal-footer mx-5 pt-3 mb-1">
-            <p class="font-small grey-text d-flex justify-content-end">Not a member? <a href="#" class="blue-text ml-1"> Sign Up</a></p>
-        </div>
+        <div>
+        <label for="defaultFormLoginPasswordEx" class="blue-text">Or Sign In With:</label>
+<br/>
+<GoogleLogin  class="btn btn-white btn-rounded z-depth-1a"
+clientId="256661036793-0oob0hi0k034t80e6gm3u69i84ljnvhg.apps.googleusercontent.com"
+// buttonText="Login"
+onSuccess={responseGoogle}
+onFailure={responseGoogle}
+>
+<i class="fa fa-google-plus blue-text" />
+</GoogleLogin>
+<SocialButton class="btn btn-fb"
+provider='facebook'
+appId='183353488972514'
+onLoginSuccess={handleSocialLogin}
+onLoginFailure={handleSocialLoginFailure}
+>
+<i class="fa fa-facebook"></i>
+</SocialButton>
+</div>
+    </form>
 
-    </div>
 
-</section>
-</form>
 </div>
 
 <div class="col">
