@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-
+import FileBase64 from 'react-file-base64';
+import ReactDOM from 'react-dom';
+import Login from './login';
 
 export default class Register extends Component {
   constructor(props){
@@ -11,10 +13,11 @@ export default class Register extends Component {
       psw:'',
       conPsw:'',
       errorMsg:'',
-       pictures: []
-    }
+      files: []    }
   }
-
+  getFiles(files){
+      this.setState({ files: files })
+    }
 
   handleChangeName = event => {
       this.setState({ name: event.target.value });
@@ -47,23 +50,28 @@ export default class Register extends Component {
        const user = {
          name: this.state.name,
          email: this.state.email,
-         psw: this.state.psw,
-         conPsw: this.state.conPsw
+         password: this.state.psw,
+        //  files: this.state.files.base64
        };
-       console.log({user})
-       fetch('https://localhost:3001/users', {
+       console.log(user)
+       fetch('http://localhost:3001/users', {
      method: 'POST',
-     body: JSON.stringify({user})
+     body: JSON.stringify(user),
+     headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
+    .then(response =>{ if(response.status == true){
+      ReactDOM.render(<Login />, document.getElementById('root'));
+    }
+  }
+  );
 
 
      }
 
-        event.preventDefault();
-
-
+    event.preventDefault();
   }
 
   render() {
@@ -124,8 +132,15 @@ export default class Register extends Component {
             </label>
              :''}
             </label>
+          <br/>
+          <label for="defaultFormRegisterPasswordEx" class="grey-text">Upload Your photo</label>
+
+            <FileBase64
+       multiple={ false }
+       onDone={ this.getFiles.bind(this) } />
     <div class="text-center mt-4">
-        <button class="btn btn-blue" type="submit">Register</button>
+
+        <button class="btn btn-blue" onChange type="submit">Register</button>
     </div>
 </form>
 

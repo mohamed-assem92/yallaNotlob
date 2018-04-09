@@ -20,7 +20,7 @@ export default class Orders extends Component {
     })
       .then(response => response.json())
       .then(json => {
-        this.setState({ ordersArray:[{type:"breakfast",resturantName:"shabrawy",invited:"20",joined:"5",status:"waiting",actions:["view","finish","cancel"]},{type:"breakfast",resturantName:"shabrawy",invited:"20",joined:"5",status:"waiting",actions:["view","finish","cancel"]}] })
+        this.setState({ ordersArray: json})
       });
   }
   render() {
@@ -46,18 +46,12 @@ export default class Orders extends Component {
     {this.state.ordersArray.map((order)=>{
       return(
         <tr  key={uuidv4()}>
-            <th  key={uuidv4()} scope="row">{order.type}</th>
-            <td  key={uuidv4()}>{order.resturantName}</td>
+            <th  key={uuidv4()} scope="row">{order.order_for}</th>
+            <td  key={uuidv4()}>{order.restaurant}</td>
             <td  key={uuidv4()}>{order.invited}</td>
             <td  key={uuidv4()}>{order.joined}</td>
-            <td  key={uuidv4()}>{order.status}</td>
-            <td  key={uuidv4()}>{order.actions.map((action)=>{
-              return(
-                <div key={uuidv4()}>
-                <Link key={uuidv4()} to={"/orders/"+action} className="active">{action}</Link>
-                </div>
-              );
-            })}</td>
+            <td  key={uuidv4()}>{order.state}</td>
+
         </tr>
       );
     })}

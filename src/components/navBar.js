@@ -6,6 +6,7 @@ import Home from './home';
 import NotificationBadge from 'react-notification-badge';
 import { Effect } from 'react-notification-badge';
 import { Link } from "react-router-dom";
+import ActionCable from 'action-cable-react-jwt';
 
 export default class NavbarFeatures extends React.Component {
   constructor(props) {
@@ -23,16 +24,19 @@ export default class NavbarFeatures extends React.Component {
   }
 
   componentWillMount() {
-    fetch('http://jsonplaceholder.typicode.com/users')
+    fetch(`http://localhost:3001/users/1`)
       .then(response => response.json())
       .then(json => {
-        let currentUser = json[0]
-        this.setState({ user : currentUser })
-        console.log(this.state.user);
+        if(json.status){
+          let currentUser = json
+          this.setState({ user : currentUser })
+          console.log(this.state.user);
+        }
+
       });
-    fetch('http://jsonplaceholder.typicode.com/posts')
+    fetch(`http://localhost:3001/users/3/notifications/new`)
       .then(response => response.json())
-      .then(json => { this.setState({ count: json.length }) });
+      .then(json => { this.setState({ count: json.count }) });
   }
 
   onClick(){

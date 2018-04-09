@@ -16,7 +16,11 @@ export default class Groups extends Component {
     };
   }
   componentWillMount() {
+<<<<<<< HEAD
     fetch(`http://192.168.1.9:3001/users/1/groups`)
+=======
+    fetch(`http://localhost:3001/users/1/groups`)
+>>>>>>> 6ffd9fc00cf91aca8301843388c27013d1641c55
       .then(response => response.json())
       .then(json => {
         let groupsArr = json;
@@ -26,7 +30,11 @@ export default class Groups extends Component {
 
   addGroup() {
     if (this.state.inputValue) {
+<<<<<<< HEAD
       fetch(`http://192.168.1.9:3001/users/1/groups`, {
+=======
+      fetch(`http://localhost:3001/users/1/groups`, {
+>>>>>>> 6ffd9fc00cf91aca8301843388c27013d1641c55
         method: 'POST',
         body: JSON.stringify({
           name: this.state.inputValue,
@@ -56,7 +64,11 @@ export default class Groups extends Component {
 
   deleteGroup(e, gId) {
     e.preventDefault;
+<<<<<<< HEAD
     fetch(`http://192.168.1.9:3001/users/1/groups/${gId}`, {
+=======
+    fetch(`http://localhost:3001/users/1/groups/${gId}`, {
+>>>>>>> 6ffd9fc00cf91aca8301843388c27013d1641c55
       method: 'DELETE',
 
     })
@@ -151,12 +163,10 @@ class Friends extends Component {
 
   addFriend() {
     if (this.state.inputValue) {
-      fetch('http://jsonplaceholder.typicode.com/users', {
+      fetch(`http://192.168.1.9:3001/users/1/groups/${this.state.groupID}/friends`, {
         method: 'POST',
         body: JSON.stringify({
           name: this.state.inputValue,
-          email: 'bar@example.com',
-          id: 90
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8"
@@ -165,8 +175,14 @@ class Friends extends Component {
         .then(response => response.json())
         .then(json => {
           let newGroup = this.state.currentGroup;
-          newGroup.push(json);
-          this.setState({ currentGroup: newGroup });
+          console.log(json);
+
+          if(json.status){
+
+            newGroup.push(json.message);
+            this.setState({ currentGroup: newGroup });
+          }
+
         })
     }
     else {
