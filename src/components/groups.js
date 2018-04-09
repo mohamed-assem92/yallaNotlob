@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, CardBody, CardImage, CardTitle, CardText } from 'mdbreact';
+import { Button, Card, CardBody, CardImage, CardTitle } from 'mdbreact';
 import { Link } from "react-router-dom";
 import "./groups.css";
 const uuidv4 = require('uuid/v4');

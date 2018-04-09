@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import FileBase64 from 'react-file-base64';
 import ReactDOM from 'react-dom';
 import Login from './login';

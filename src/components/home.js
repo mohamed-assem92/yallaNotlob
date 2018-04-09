@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+const uuidv4 = require('uuid/v4');
 
 
 export default class Home extends Component {
@@ -36,38 +37,38 @@ componentWillMount(){
 
     return (
 
-<div class="row">
+<div className="row">
 
-      <div class="col">
+      <div className="col">
           <h3>Latest Orders</h3>
-          <ul class="list-group list-group-flush">
+          <ul className="list-group list-group-flush">
           {this.state.ordersArr.map(function(order, index){
                    return <li key={ index } className="list-group-item">{order.name}</li>;
                  })}
           </ul>
       </div>
 
-      <div class="col">
+      <div className="col">
       </div>
 
-     <div class="col">
+     <div className="col">
 
-       <section class="pt-5 pb-3">
-           <div class="row">
+       <section className="pt-5 pb-3">
+           <div className="row">
 
            {this.state.friendsArr.map(function(friend, index){
-                    return  <div className="col-lg-6">
-                       <div className="mdb-feed">
-                          <div className="news">
+                    return  <div key={uuidv4()} className="col-lg-6">
+                       <div key={uuidv4()} className="mdb-feed">
+                          <div key={uuidv4()} className="news">
 
-                             <div className="label">
-                               <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-1-mini.jpg" className="rounded-circle z-depth-1-half"/>
+                             <div key={uuidv4()} className="label">
+                               <img key={uuidv4()} src="https://mdbootstrap.com/img/Photos/Avatars/avatar-1-mini.jpg" className="rounded-circle z-depth-1-half"/>
                               </div>
 
-                            <div className="excerpt">
-                              <div className="brief">
-                                  <a className="name" text-decoration="underline" >{friend.name}</a>
-                                  <p className="name">created an order from {friend.email}</p>
+                            <div key={uuidv4()} className="excerpt">
+                              <div key={uuidv4()} className="brief">
+                                  <a key={uuidv4()} className="name" textDecoration="underline" >{friend.name}</a>
+                                  <p key={uuidv4()} className="name">created an order from {friend.email}</p>
                               </div>
                            </div>
 
