@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom';
 import Home from './home';
 // reactLocalStorage.set('var', true);
 // reactLocalStorage.get('var', true);
+import { Route, Redirect } from 'react-router'
 
 const handleSocialLogin = (FbUser) => {
   console.log(FbUser)
@@ -73,7 +74,7 @@ handleSubmit = event => {
       if(response.status){
         localStorage.setItem('token', response.token);
         localStorage.setItem('user_id', response.user_id);
-        
+
         ReactDOM.render(<Home />, document.getElementById('root'));
       }
     });
