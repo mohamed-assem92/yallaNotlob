@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import {reactLocalStorage} from 'reactjs-localstorage';
+const uuidv4 = require('uuid/v4');
 
 
 export default class Home extends Component {
@@ -17,9 +19,11 @@ componentWillMount(){
     .then(json => {
       let friendsArr = json
       this.setState({ friendsArr:friendsArr })
+      // console.log(reactLocalStorage.get("userToken"));
+
       // console.log(currentName);
     });
-    fetch('https://jsonplaceholder.typicode.com/users')
+    fetch(`http://localhost:3001/users/1/orders`)
       .then(response => response.json())
       .then(json => {
         console.log(json);
@@ -36,38 +40,38 @@ componentWillMount(){
 
     return (
 
-<div class="row">
+<div className="row">
 
-      <div class="col">
+      <div className="col">
           <h3>Latest Orders</h3>
-          <ul class="list-group list-group-flush">
+          <ul className="list-group list-group-flush" >
           {this.state.ordersArr.map(function(order, index){
-                   return <li key={ index } class="list-group-item">{order.name}</li>;
+                   return <li key={uuidv4()} className="list-group-item">{order.order_for + " from "+ order.restaurant +" on " + order.created_at }<button className="btn btn-indigo">Details</button></li>;
                  })}
           </ul>
       </div>
 
-      <div class="col">
+      <div className="col">
       </div>
 
-     <div class="col">
+     <div className="col">
 
-       <section class="pt-5 pb-3">
-           <div class="row">
+       <section className="pt-5 pb-3">
+           <div className="row">
 
            {this.state.friendsArr.map(function(friend, index){
-                    return  <div class="col-lg-6">
-                       <div class="mdb-feed">
-                          <div class="news">
+                    return  <div className="col-lg-6" key={uuidv4()}>
+                       <div className="mdb-feed">
+                          <div className="news">
 
-                             <div class="label">
-                               <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-1-mini.jpg" class="rounded-circle z-depth-1-half"/>
+                             <div className="label">
+                               <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-1-mini.jpg" className="rounded-circle z-depth-1-half"/>
                               </div>
 
-                            <div class="excerpt">
-                              <div class="brief">
-                                  <a class="name" text-decoration="underline" >{friend.name}</a>
-                                  <p class="name">created an order from {friend.email}</p>
+                            <div className="excerpt">
+                              <div className="brief">
+                                  <a className="name" textDecoration="underline" >{friend.name}</a>
+                                  <p className="name">created an order from {friend.email}</p>
                               </div>
                            </div>
 
