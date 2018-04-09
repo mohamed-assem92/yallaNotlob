@@ -58,7 +58,7 @@ export default class NavbarFeatures extends React.Component {
     this.setState({showNotifications: !this.state.showNotifications})
   }
   handleLogOut(){
-    reactLocalStorage.clear;
+    reactLocalStorage.clear();
     ReactDOM.render(<Login />, document.getElementById('root'));
   }
 
