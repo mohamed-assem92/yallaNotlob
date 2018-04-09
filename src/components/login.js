@@ -7,9 +7,8 @@ import GoogleLogin from 'react-google-login';
 import {reactLocalStorage} from 'reactjs-localstorage';
 import ReactDOM from 'react-dom';
 import Home from './home';
-
-reactLocalStorage.set('var', true);
-reactLocalStorage.get('var', true);
+// reactLocalStorage.set('var', true);
+// reactLocalStorage.get('var', true);
 
 const handleSocialLogin = (FbUser) => {
   console.log(FbUser)
@@ -72,7 +71,9 @@ handleSubmit = event => {
     .catch(error => console.error('Error:', error))
     .then(response => {
       if(response.status){
-        reactLocalStorage.set(response.token, true);
+        reactLocalStorage.set({userToken: response.token}, true);
+        reactLocalStorage.set({userId: response.id}, true);
+        
         ReactDOM.render(<Home />, document.getElementById('root'));
       }
     });

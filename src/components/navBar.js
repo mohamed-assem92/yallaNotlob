@@ -5,6 +5,10 @@ import { Effect } from 'react-notification-badge';
 import { Link } from "react-router-dom";
 import ActionCable from 'action-cable-react-jwt';
 import './navBar.css';
+
+import {reactLocalStorage} from 'reactjs-localstorage';
+import ReactDOM from 'react-dom';
+import Login from './login';
 const uuidv4 = require('uuid/v4');
 
 
@@ -55,6 +59,10 @@ export default class NavbarFeatures extends React.Component {
   notificationsClicked(){
     this.setState({showNotifications: !this.state.showNotifications})
   }
+  handleLogOut(){
+    reactLocalStorage.clear;
+    ReactDOM.render(<Login />, document.getElementById('root'));
+  }
 
   render() {
       return (
@@ -94,7 +102,7 @@ export default class NavbarFeatures extends React.Component {
               <a className="nav-link waves-effect waves-light"><i className="fa fa-edit" aria-hidden="true"></i>{this.state.user.name}</a>
             </NavItem>
             <NavItem>
-              <a className="nav-link waves-effect waves-light"><i className="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+              <button color="white" onClick={this.handleLogOut} className="nav-link waves-effect waves-light"><i className="fa fa-sign-out" aria-hidden="true"></i>Logout</button>
             </NavItem>
           </NavbarNav>
         </Collapse>

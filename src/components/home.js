@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import {reactLocalStorage} from 'reactjs-localstorage';
 const uuidv4 = require('uuid/v4');
 
 
@@ -18,9 +19,11 @@ componentWillMount(){
     .then(json => {
       let friendsArr = json
       this.setState({ friendsArr:friendsArr })
+      // console.log(reactLocalStorage.get("userToken"));
+
       // console.log(currentName);
     });
-    fetch('https://jsonplaceholder.typicode.com/users')
+    fetch(`http://localhost:3001/users/1/orders`)
       .then(response => response.json())
       .then(json => {
         console.log(json);
@@ -41,9 +44,9 @@ componentWillMount(){
 
       <div className="col">
           <h3>Latest Orders</h3>
-          <ul className="list-group list-group-flush">
+          <ul className="list-group list-group-flush" >
           {this.state.ordersArr.map(function(order, index){
-                   return <li key={ index } className="list-group-item">{order.name}</li>;
+                   return <li key={uuidv4()} className="list-group-item">{order.order_for + " from "+ order.restaurant +" on " + order.created_at }<button className="btn btn-indigo">Details</button></li>;
                  })}
           </ul>
       </div>
