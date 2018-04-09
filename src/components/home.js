@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import {reactLocalStorage} from 'reactjs-localstorage';
+import ActionCable from 'action-cable-react-jwt';
 const uuidv4 = require('uuid/v4');
 
 
@@ -9,28 +10,43 @@ export default class Home extends Component {
     super(props);
     this.state={
       friendsArr :[],
-      ordersArr : []
+      ordersArr : [],
+      userId : localStorage.getItem("user_id"),
+      token : localStorage.getItem("token")
     }
 
   }
 componentWillMount(){
-  fetch('https://jsonplaceholder.typicode.com/users')
+
+  let app = {};
+  app.cable = ActionCable.createConsumer(`ws://localhost:3001/cable?token=${this.state.token}`)
+  this.subscription = app.cable.subscriptions.create({channel: "ActivitiesChannel"}, {
+  connected: function() { console.log("cable: connected") },             // onConnect
+  disconnected: function() { console.log("cable: disconnected") },       // onDisconnect
+  received: (data) => { 
+    console.log("cable received: ", data); 
+    let newArr = this.state.friendsArr;
+    newArr.push(data);
+    this.setState({ friendsArr:newArr })
+  }         
+})
+  fetch(`http://localhost:3001/users/${this.state.userId}/friends-activity`)
     .then(response => response.json())
     .then(json => {
-      let friendsArr = json
-      this.setState({ friendsArr:friendsArr })
-      // console.log(reactLocalStorage.get("userToken"));
-
-      // console.log(currentName);
+      let friendsArr = []
+          for (let i = 0; i < json.length; i++) {           
+            for (let j = 0; j < json[i].friend_orders.length; j++) {
+             json[i].friend_orders[j].name = json[i].friend_name;
+             friendsArr.push(json[i].friend_orders[j]); 
+            }          
+         }
+        this.setState({ friendsArr:friendsArr })
+      
     });
-    fetch(`http://localhost:3001/users/1/orders`)
+    fetch(`http://localhost:3001/users/${this.state.userId}/orders`)
       .then(response => response.json())
-      .then(json => {
-        console.log(json);
-
-        let ordersArr = json
-        this.setState({ ordersArr:ordersArr })
-        console.log(ordersArr);
+      .then(json => {       
+         this.setState({ ordersArr:json })       
       });
 
 }
@@ -65,13 +81,13 @@ componentWillMount(){
                           <div className="news">
 
                              <div className="label">
-                               <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-1-mini.jpg" className="rounded-circle z-depth-1-half"/>
+                               <img src="http://mdbootstrap.com/img/Photos/Avatars/avatar-1-mini.jpg" className="rounded-circle z-depth-1-half"/>
                               </div>
 
                             <div className="excerpt">
                               <div className="brief">
-                                  <a className="name" textDecoration="underline" >{friend.name}</a>
-                                  <p className="name">created an order from {friend.email}</p>
+                                  <a className="name" textDecoration="underline" >{friend.name + " created an order for " + friend.order_for + " from " + friend.restaurant}</a>
+                                 
                               </div>
                            </div>
 

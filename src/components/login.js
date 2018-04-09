@@ -71,8 +71,8 @@ handleSubmit = event => {
     .catch(error => console.error('Error:', error))
     .then(response => {
       if(response.status){
-        reactLocalStorage.set({userToken: response.token}, true);
-        reactLocalStorage.set({userId: response.id}, true);
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user_id', response.user_id);
         
         ReactDOM.render(<Home />, document.getElementById('root'));
       }

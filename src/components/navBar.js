@@ -6,6 +6,8 @@ import Home from './home';
 import NotificationBadge from 'react-notification-badge';
 import { Effect } from 'react-notification-badge';
 import { Link } from "react-router-dom";
+import { Route, Redirect } from 'react-router'
+
 import ActionCable from 'action-cable-react-jwt';
 import {reactLocalStorage} from 'reactjs-localstorage';
 import ReactDOM from 'react-dom';
@@ -21,13 +23,28 @@ export default class NavbarFeatures extends React.Component {
       user: {},
       count: 0,
       showNotifications: false,
+      userId : localStorage.getItem("user_id"),
+      token : localStorage.getItem("token")
     };
   this.onClick = this.onClick.bind(this);
   this.toggle = this.toggle.bind(this);
   }
 
   componentWillMount() {
-    fetch(`http://192.168.1.9:3001/users/1`)
+    let app = {};
+    app.cable = ActionCable.createConsumer(`ws://localhost:3001/cable?token=${this.state.token}`)
+
+    this.subscription = app.cable.subscriptions.create({channel: "NotificationsChannel"}, {
+      connected: function() { console.log("cable: connected") },             // onConnect
+      disconnected: function() { console.log("cable: disconnected") },       // onDisconnect
+      received: (data) => { 
+        console.log("cable received: ", data); 
+        this.setState({ count : this.state.count + 1 })
+      }         
+    })
+
+    
+    fetch(`http://localhost:3001/users/${this.state.userId}`)
       .then(response => response.json())
       .then(json => {
         if(json.status){
@@ -37,9 +54,11 @@ export default class NavbarFeatures extends React.Component {
         }
 
       });
-    fetch(`http://192.168.1.9:3001/users/3/notifications/new`)
+
+    fetch(`http://localhost:3001/users/${this.state.userId}/notifications/new`)
       .then(response => response.json())
-      .then(json => { this.setState({ count: json.count }) });
+      .then(json => { console.log( json);
+       this.setState({ count: json.count }) });
   }
 
   onClick(){
@@ -58,7 +77,11 @@ export default class NavbarFeatures extends React.Component {
     this.setState({showNotifications: !this.state.showNotifications})
   }
   handleLogOut(){
-    reactLocalStorage.clear;
+    reactLocalStorage.clear();
+    console.log("dddd");
+    
+    // <Redirect to="/login"/>
+
     ReactDOM.render(<Login />, document.getElementById('root'));
   }
 
@@ -94,7 +117,7 @@ export default class NavbarFeatures extends React.Component {
             </NavItem>
             {this.state.showNotifications && < NotificationsDiv / >}
             <NavItem>
-              <img src="https://picsum.photos/200/300/?random" className="rounded-circle z-depth-0" height="40px" alt="avatar" />
+              <img src="http://picsum.photos/200/300/?random" className="rounded-circle z-depth-0" height="40px" alt="avatar" />
             </NavItem>
             <NavItem>
               <a className="nav-link waves-effect waves-light"><i className="fa fa-edit" aria-hidden="true"></i>{this.state.user.name}</a>

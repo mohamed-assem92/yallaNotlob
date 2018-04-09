@@ -12,7 +12,7 @@ export default class Orders extends Component {
     };
   }
   componentWillMount(){
-    fetch('http://192.168.1.9:3001/users/1/orders',{
+    fetch('http://localhost:3001/users/1/orders',{
       method:'GET',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
