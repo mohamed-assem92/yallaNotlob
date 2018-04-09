@@ -33,13 +33,11 @@ export default class NavbarFeatures extends React.Component {
   }
 
   componentWillMount() {
-    // isLogged(){
-    //   let loggedUser = localStorage.getItem('user_id');
-    //   if(!loggedUser){
-    //     ReactDOM.render(<Login />, document.getElementById('root'));
-    //
-    //   }
-    // }
+      let loggedUser = localStorage.getItem('user_id');
+      if(!loggedUser){
+        ReactDOM.render(<Login />, document.getElementById('root'));
+      }
+
     let app = {};
     app.cable = ActionCable.createConsumer(`ws://localhost:3001/cable?token=${this.state.token}`)
 
