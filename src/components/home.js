@@ -28,7 +28,7 @@ componentWillMount(){
         this.setState({ ordersArr:ordersArr })
         console.log(ordersArr);
       });
-      
+
 }
   render() {
     const names=[1,2,3];
@@ -42,7 +42,7 @@ componentWillMount(){
           <h3>Latest Orders</h3>
           <ul class="list-group list-group-flush">
           {this.state.ordersArr.map(function(order, index){
-                   return <li key={ index } class="list-group-item">{order.name}</li>;
+                   return <li key={ index } className="list-group-item">{order.name}</li>;
                  })}
           </ul>
       </div>
@@ -56,18 +56,18 @@ componentWillMount(){
            <div class="row">
 
            {this.state.friendsArr.map(function(friend, index){
-                    return  <div class="col-lg-6">
-                       <div class="mdb-feed">
-                          <div class="news">
+                    return  <div className="col-lg-6">
+                       <div className="mdb-feed">
+                          <div className="news">
 
-                             <div class="label">
-                               <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-1-mini.jpg" class="rounded-circle z-depth-1-half"/>
+                             <div className="label">
+                               <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-1-mini.jpg" className="rounded-circle z-depth-1-half"/>
                               </div>
 
-                            <div class="excerpt">
-                              <div class="brief">
-                                  <a class="name" text-decoration="underline" >{friend.name}</a>
-                                  <p class="name">created an order from {friend.email}</p>
+                            <div className="excerpt">
+                              <div className="brief">
+                                  <a className="name" text-decoration="underline" >{friend.name}</a>
+                                  <p className="name">created an order from {friend.email}</p>
                               </div>
                            </div>
 

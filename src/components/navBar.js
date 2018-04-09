@@ -23,14 +23,14 @@ export default class NavbarFeatures extends React.Component {
   }
 
   componentWillMount() {
-    fetch('https://jsonplaceholder.typicode.com/users')
+    fetch('http://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
       .then(json => {
         let currentUser = json[0]
         this.setState({ user : currentUser })
         console.log(this.state.user);
       });
-    fetch('https://jsonplaceholder.typicode.com/posts')
+    fetch('http://jsonplaceholder.typicode.com/posts')
       .then(response => response.json())
       .then(json => { this.setState({ count: json.length }) });
   }

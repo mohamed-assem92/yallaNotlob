@@ -16,7 +16,7 @@ export default class Groups extends Component {
     };
   }
   componentWillMount() {
-    fetch(`https://localhost:3001/users/1/groups`)
+    fetch(`http://192.168.1.9:3001/users/1/groups`)
       .then(response => response.json())
       .then(json => {
         let groupsArr = json;
@@ -26,7 +26,7 @@ export default class Groups extends Component {
 
   addGroup() {
     if (this.state.inputValue) {
-      fetch(`https://localhost:3001/users/1/groups`, {
+      fetch(`http://192.168.1.9:3001/users/1/groups`, {
         method: 'POST',
         body: JSON.stringify({
           name: this.state.inputValue,
@@ -56,7 +56,7 @@ export default class Groups extends Component {
 
   deleteGroup(e, gId) {
     e.preventDefault;
-    fetch(`https://localhost:3001/users/1/groups/${gId}`, {
+    fetch(`http://192.168.1.9:3001/users/1/groups/${gId}`, {
       method: 'DELETE',
 
     })
@@ -122,7 +122,7 @@ class Friends extends Component {
     };
   }
   componentWillMount() {
-    fetch(`https://localhost:3001/users/1/groups/${this.state.groupID}/users`)
+    fetch(`http://192.168.1.9:3001/users/1/groups/${this.state.groupID}/users`)
       .then(response => response.json())
       .then(json => {
         let group = json;
@@ -131,8 +131,8 @@ class Friends extends Component {
       });
   }
   removeFriend(e, fID) {
-    e.preventDefault;   
-    fetch(`https://localhost:3001/users/1/groups/${this.state.groupID}/friends/${fID}`, {
+    e.preventDefault;
+    fetch(`http://192.168.1.9:3001/users/1/groups/${this.state.groupID}/friends/${fID}`, {
       method: 'DELETE',
     })
       .then(response => response.json())
@@ -151,7 +151,7 @@ class Friends extends Component {
 
   addFriend() {
     if (this.state.inputValue) {
-      fetch('https://jsonplaceholder.typicode.com/users', {
+      fetch('http://jsonplaceholder.typicode.com/users', {
         method: 'POST',
         body: JSON.stringify({
           name: this.state.inputValue,
@@ -184,7 +184,7 @@ class Friends extends Component {
           return (
             <div className="cardDiv" key={uuidv4()}>
               <Card key={uuidv4()}>
-                <CardImage key={uuidv4()} className="img-circle" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%282%29.jpg" />
+                <CardImage key={uuidv4()} className="img-circle" src="https://picsum.photos/200/300/?random" />
                 <CardBody className="cardName" key={uuidv4()}>
                   <CardTitle key={uuidv4()}>{friend.name}</CardTitle>
                   <Button onClick={(e) => { this.removeFriend(e, friend.id) }} key={uuidv4()}>Remove</Button>
