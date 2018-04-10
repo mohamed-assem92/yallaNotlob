@@ -34,9 +34,10 @@ export default class ForgetPsw extends Component{
         }).then(res => res.json())
         .catch(error => console.error('Error:', error))
         .then(response => {
-          if(response.status){
-            ReactDOM.render(<Login />, document.getElementById('root'));
-          }
+          // if(response.status){
+            console.log(response);
+            // ReactDOM.render(<Login />, document.getElementById('root'));
+          // }
         });
 
     }

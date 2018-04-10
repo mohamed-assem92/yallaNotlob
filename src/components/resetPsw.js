@@ -26,10 +26,10 @@ export default class ResetPsw extends Component{
         if(this.state.newPsw == this.state.conPsw )
           {
               const user = {
-                newPsw: this.state.newPsw,
+                password: this.state.newPsw,
               };
               // console.log({user})
-            fetch('http://192.168.1.9:3001/password/reset', {
+          fetch(`http://localhost:3001/password/reset${this.props.location.search}`, {
             method: 'POST',
             body: JSON.stringify(user),
             headers:{
@@ -38,8 +38,9 @@ export default class ResetPsw extends Component{
           }).then(res => res.json())
           .catch(error => console.error('Error:', error))
           .then(response => {
+            console.log(response);
             if(response.status){
-              ReactDOM.render(<Login />, document.getElementById('root'));
+              // redirect to login here
             }
           });
 
