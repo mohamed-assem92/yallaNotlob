@@ -29,7 +29,7 @@ export default class ResetPsw extends Component{
                 password: this.state.newPsw,
               };
               // console.log({user})
-          fetch(`http://localhost:3001/password/reset${this.props.location.search}`, {
+            fetch('http://10.145.9.58:3001/password/reset', {
             method: 'POST',
             body: JSON.stringify(user),
             headers:{
@@ -40,7 +40,6 @@ export default class ResetPsw extends Component{
           .then(response => {
             console.log(response);
             if(response.status){
-              // redirect to login here
             }
           });
 

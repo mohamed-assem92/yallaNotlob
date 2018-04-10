@@ -53,7 +53,7 @@ export default class Register extends Component {
         //  files: this.state.files.base64
        };
        console.log(user)
-       fetch('http://localhost:3001/users', {
+       fetch('http://10.145.9.58:3001/users', {
      method: 'POST',
      body: JSON.stringify(user),
      headers: {
@@ -62,7 +62,6 @@ export default class Register extends Component {
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response =>{ if(response.status){
-      ReactDOM.render(<Login />, document.getElementById('root'));
     }
   }
   );

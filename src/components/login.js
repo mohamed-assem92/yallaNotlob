@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Link , Redirect } from 'react-router-dom';
 import { Button, Input, label } from 'mdbreact';
 import SocialButton from './socialButton';
 import GoogleLogin from 'react-google-login';
-import { reactLocalStorage } from 'reactjs-localstorage';
-import ReactDOM from 'react-dom';
+import {reactLocalStorage} from 'reactjs-localstorage';
+// import ReactDOM from 'react-dom';
 import Home from './home';
-import { Route, Redirect } from 'react-router'
 // reactLocalStorage.set('var', true);
 // reactLocalStorage.get('var', true);
+// import { Route } from 'react-router'
 
 const handleSocialLogin = (FbUser) => {
   console.log("Hello");
@@ -35,7 +34,7 @@ const handleSocialLogin = (FbUser) => {
 const handleSocialLoginFailure = (err) => {
   console.error(err)
 }
-
+const responseGoogleFailure = () => {};
 const responseGoogle = (GoUser) => {
   fetch('http://localhost:3001/users/login/google', {
     method: 'POST',
@@ -58,47 +57,53 @@ const responseGoogle = (GoUser) => {
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: '',
-      psw: '',
+    this.state={
+      email:'',
+      psw:'',
+      redirect:false,
     }
     console.log(this.state.user)
   }
 
   handleChangeEmail = event => {
-    this.setState({ email: event.target.value });
-  }
-  handleChangePsw = event => {
-    this.setState({ psw: event.target.value })
-  }
+      this.setState({ email: event.target.value });
+    }
+ handleChangePsw = event =>{
+   this.setState({ psw: event.target.value})
+ }
 
-  handleSubmit = event => {
-    event.preventDefault();
+handleSubmit = event => {
+        event.preventDefault();
 
-    const user = {
-      email: this.state.email,
-      password: this.state.psw
-    };
-    console.log({ user })
-    fetch('http://localhost:3001/users/login', {
+        const user = {
+          email: this.state.email,
+          password: this.state.psw
+        };
+        // console.log({user})
+        fetch('http://10.145.9.58:3001/users/login', {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       }
     }).then(res => res.json())
-      .catch(error => console.error('Error:', error))
-      .then(response => {
-        if (response.status) {
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('user_id', response.user_id);
-
-          ReactDOM.render(<Home />, document.getElementById('root'));
-        }
-      });
+    .then(response => {
+      if(response.status){
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user_id', response.user_id);
+        this.setState({redirect:true});
+        console.log(this.state.redirect);
+      }
+    });
 
   }
   render() {
+
+    const {redirect} = this.state;
+    if (redirect) {
+      return <Redirect to='/home'/>;
+    }
+
     return (
 
       <div className="row">
@@ -128,36 +133,37 @@ export default class Login extends Component {
             <div className="text-center mt-4">
               <button className="btn btn-indigo" type="submit">Login</button>
             </div>
-
-            <div>
-              <label for="defaultFormLoginPasswordEx" className="blue-text">Or Sign In With:</label>
-              <br />
-              <GoogleLogin className="btn btn-white btn-rounded z-depth-1a"
-                clientId="256661036793-0oob0hi0k034t80e6gm3u69i84ljnvhg.apps.googleusercontent.com"
-                // buttonText="Login"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-              >
-                <i className="fa fa-google-plus blue-text" />
-              </GoogleLogin>
-              <SocialButton className="btn btn-fb"
-                provider='facebook'
-                appId='183353488972514'
-                onLoginSuccess={handleSocialLogin}
-                onLoginFailure={handleSocialLoginFailure}
-              >
-                <i className="fa fa-facebook"></i>
-              </SocialButton>
-            </div>
           </form>
-
+          <div>
+        <label for="defaultFormLoginPasswordEx" class="blue-text">Or Sign In With:</label>
+<br/>
+<GoogleLogin  class="btn btn-white btn-rounded z-depth-1a"
+clientId="256661036793-0oob0hi0k034t80e6gm3u69i84ljnvhg.apps.googleusercontent.com"
+// buttonText="Login"
+onSuccess={responseGoogle}
+onFailure={responseGoogleFailure}
+>
+<i class="fa fa-google-plus blue-text" />
+</GoogleLogin>
+<SocialButton class="btn btn-fb"
+provider='facebook'
+appId='183353488972514'
+onLoginSuccess={handleSocialLogin}
+onLoginFailure={handleSocialLoginFailure}
+>
+<i class="fa fa-facebook"></i>
+</SocialButton>
+</div>
 
         </div>
 
         <div className="col">
         </div>
+    
 
-      </div>
+</div>
+
+
 
     );
   }

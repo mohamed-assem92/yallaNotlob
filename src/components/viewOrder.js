@@ -9,6 +9,7 @@ export default class ViewOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      prop: this.props,
       orderId: this.props.location.pathname.split("/")[2],
       currentDetails: [],
       userId: localStorage.getItem("user_id"),
@@ -16,10 +17,12 @@ export default class ViewOrder extends Component {
     };
   }
   componentWillMount() {
-
+    
+    console.log(this.state.orderId);
+    
 
     let app = {};
-    app.cable = ActionCable.createConsumer(`ws://localhost:3001/cable?token=${this.state.token}`)
+    app.cable = ActionCable.createConsumer(`ws://10.145.9.58:3001/cable?token=${this.state.token}`)
 
     this.subscription = app.cable.subscriptions.create({ channel: "OrdersChannel" }, {
       connected: function () { console.log("cable: connected") },             // onConnect
@@ -46,7 +49,7 @@ export default class ViewOrder extends Component {
     })
 
 
-    fetch(`http://localhost:3001/orders/${this.state.orderId}`, {
+    fetch(`http://10.145.9.58:3001/orders/${this.state.orderId}`, {
       method: 'GET',
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -102,9 +105,9 @@ export default class ViewOrder extends Component {
       comment: comment,
       amount: amount
     }
-    fetch(`http://localhost:3001/users/${this.state.userId}/order_details`, {
-      method: 'POST',
-      headers: {
+    fetch(`http://10.145.9.58:3001/users/${this.state.userId}/order_details`,{
+      method:'POST',
+      headers:{
         "Content-type": "application/json; charset=UTF-8",
       },
       body: JSON.stringify(body)

@@ -25,7 +25,7 @@ export default class ForgetPsw extends Component{
 
             };
             // console.log({user})
-            fetch('http://localhost:3001/password/forget', {
+            fetch('http://10.145.9.58:3001/password/forget', {
           method: 'POST',
           body: JSON.stringify(user),
           headers:{
@@ -34,10 +34,9 @@ export default class ForgetPsw extends Component{
         }).then(res => res.json())
         .catch(error => console.error('Error:', error))
         .then(response => {
-          // if(response.status){
-            console.log(response);
-            // ReactDOM.render(<Login />, document.getElementById('root'));
-          // }
+          if(response.status){
+            //redirect to login
+          }
         });
 
     }
