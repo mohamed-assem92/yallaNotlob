@@ -61,6 +61,7 @@ export default class ViewOrder extends Component {
           let names = json.message.names;
           for (let i = 0; i < orders.length; i++) {
             orders[i].name = names[i]
+            orders[i].state = json.message.state;
           }
           let details = orders;
           this.setState({ currentDetails: details });
@@ -149,7 +150,7 @@ export default class ViewOrder extends Component {
                       <td key={uuidv4()}>{detail.amount}</td>
                       <td key={uuidv4()}>{detail.price}</td>
                       <td key={uuidv4()}>{detail.comment}
-                        {detail.user_id == this.state.userId && <button id={detail.id} onClick={(e)=>{this.removeDetail(e)}}>delete</button>}
+                        {detail.user_id == this.state.userId && detail.state == "waiting" && <button id={detail.id} onClick={(e)=>{this.removeDetail(e)}}>delete</button>}
                       </td>                      
                     </tr>
                   );

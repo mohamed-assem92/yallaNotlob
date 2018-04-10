@@ -62,7 +62,7 @@ componentWillMount(){
           <h3>Latest Orders</h3>
           <ul className="list-group list-group-flush" >
           {this.state.ordersArr.map(function(order, index){
-                   return <li key={uuidv4()} className="list-group-item">{order.order_for + " from "+ order.restaurant +" on " + order.created_at }<button className="btn btn-indigo">Details</button></li>;
+                   return <li key={uuidv4()} className="list-group-item"><Link to={`/viewOrder/${order.id}`}>{order.order_for + " from "+ order.restaurant + " on " + order.created_at }</Link></li>;
                  })}
           </ul>
       </div>
