@@ -29,7 +29,7 @@ export default class ResetPsw extends Component{
                 password: this.state.newPsw,
               };
               // console.log({user})
-            fetch('http://10.145.9.58:3001/password/reset', {
+            fetch('http://192.168.1.3:3001/password/reset', {
             method: 'POST',
             body: JSON.stringify(user),
             headers:{

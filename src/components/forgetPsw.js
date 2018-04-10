@@ -25,7 +25,7 @@ export default class ForgetPsw extends Component{
 
             };
             // console.log({user})
-            fetch('http://10.145.9.58:3001/password/forget', {
+            fetch('http://192.168.1.3:3001/password/forget', {
           method: 'POST',
           body: JSON.stringify(user),
           headers:{

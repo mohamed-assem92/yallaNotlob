@@ -22,7 +22,7 @@ export default class ViewOrder extends Component {
     
 
     let app = {};
-    app.cable = ActionCable.createConsumer(`ws://10.145.9.58:3001/cable?token=${this.state.token}`)
+    app.cable = ActionCable.createConsumer(`ws://192.168.1.3:3001/cable?token=${this.state.token}`)
 
     this.subscription = app.cable.subscriptions.create({ channel: "OrdersChannel" }, {
       connected: function () { console.log("cable: connected") },             // onConnect
@@ -49,7 +49,7 @@ export default class ViewOrder extends Component {
     })
 
 
-    fetch(`http://10.145.9.58:3001/orders/${this.state.orderId}`, {
+    fetch(`http://192.168.1.3:3001/orders/${this.state.orderId}`, {
       method: 'GET',
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -105,7 +105,7 @@ export default class ViewOrder extends Component {
       comment: comment,
       amount: amount
     }
-    fetch(`http://10.145.9.58:3001/users/${this.state.userId}/order_details`,{
+    fetch(`http://192.168.1.3:3001/users/${this.state.userId}/order_details`,{
       method:'POST',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
