@@ -54,11 +54,7 @@ export default class NavbarFeatures extends React.Component {
     })
 
 
-<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}`)
-=======
-    fetch(`http://192.168.1.3:3001/users/${this.state.userId}`)
->>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       .then(response => response.json())
       .then(json => {
         if(json.status){
@@ -69,11 +65,7 @@ export default class NavbarFeatures extends React.Component {
 
       });
 
-<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/notifications/new`)
-=======
-    fetch(`http://192.168.1.3:3001/users/${this.state.userId}/notifications/new`)
->>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       .then(response => response.json())
       .then(json => { this.setState({ count: json.count , notifications:json.notifications}) });
   }
@@ -91,11 +83,7 @@ export default class NavbarFeatures extends React.Component {
   }
 
   notificationsClicked(){
-<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/notifications`,{
-=======
-    fetch(`http://192.168.1.3:3001/users/${this.state.userId}/notifications`,{
->>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       method:'PATCH',
       headers:{
         "Content-type": "application/json; charset=UTF-8",

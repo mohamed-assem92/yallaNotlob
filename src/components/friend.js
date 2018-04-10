@@ -76,11 +76,7 @@ export default class Friend extends Component {
   removeFriend(e , fid){
     console.log(fid);
     e.preventDefault;
-<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/friends/${fid}`, {
-=======
-    fetch(`http://192.168.1.3:3001/users/${this.state.userId}/friends/${fid}`, {
->>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       method:'DELETE',
     })
     .then(res => res.json())

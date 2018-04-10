@@ -15,7 +15,7 @@ import "./login.css";
 const handleSocialLogin = (FbUser) => {
   console.log("Hello");
   console.log(FbUser);
-  fetch('http://localhost:3001/users/login/facebook', {
+  fetch('https://hidden-dawn-97047.herokuapp.com/users/login/facebook', {
     method: 'POST',
     body: JSON.stringify( FbUser),
     headers: {
@@ -40,7 +40,7 @@ const handleSocialLoginFailure = (err) => {
 }
 const responseGoogleFailure = () => {};
 const responseGoogle = (GoUser) => {
-  fetch('http://localhost:3001/users/login/google', {
+  fetch('https://hidden-dawn-97047.herokuapp.com/users/login/google', {
     method: 'POST',
     body: JSON.stringify(GoUser),
     headers: {

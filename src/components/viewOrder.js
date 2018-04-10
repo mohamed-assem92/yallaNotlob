@@ -49,11 +49,7 @@ export default class ViewOrder extends Component {
     })
 
 
-<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/orders/${this.state.orderId}`, {
-=======
-    fetch(`http://192.168.1.3:3001/orders/${this.state.orderId}`, {
->>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       method: 'GET',
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -79,7 +75,7 @@ export default class ViewOrder extends Component {
   }
   removeDetail(e){
     let detailID = e.target.id;
-    fetch(`http://localhost:3001/users/${this.state.userId}/order_details/${detailID}`, {
+    fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/order_details/${detailID}`, {
       method: 'delete',
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -109,11 +105,7 @@ export default class ViewOrder extends Component {
       comment: comment,
       amount: amount
     }
-<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/order_details`,{
-=======
-    fetch(`http://192.168.1.3:3001/users/${this.state.userId}/order_details`,{
->>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       method:'POST',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
