@@ -85,11 +85,7 @@ handleSubmit = event => {
           password: this.state.psw
         };
         // console.log({user})
-<<<<<<< HEAD
         fetch('https://hidden-dawn-97047.herokuapp.com/users/login', {
-=======
-        fetch('http://192.168.1.3:3001/users/login', {
->>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
