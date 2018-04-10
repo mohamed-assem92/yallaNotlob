@@ -25,7 +25,7 @@ export default class ForgetPsw extends Component{
 
             };
             // console.log({user})
-            fetch('http://10.145.9.58:3001/password/forget', {
+            fetch('https://hidden-dawn-97047.herokuapp.com/password/forget', {
           method: 'POST',
           body: JSON.stringify(user),
           headers:{

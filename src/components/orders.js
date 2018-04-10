@@ -15,7 +15,7 @@ export default class Orders extends Component {
     };
   }
   componentWillMount(){
-    fetch(`http://10.145.9.58:3001/users/${this.state.userId}/orders`,{
+    fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/orders`,{
       method:'GET',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -29,7 +29,7 @@ export default class Orders extends Component {
   }
   finishOrder(e , orderID){
     e.preventDefault();
-    fetch(`http://10.145.9.58:3001/users/${this.state.userId}/orders/${orderID}`,{
+    fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/orders/${orderID}`,{
       method:'PATCH',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -38,7 +38,7 @@ export default class Orders extends Component {
       .then(response => response.json())
       .then(json => {
         if (json.status) {
-          fetch(`http://10.145.9.58:3001/users/${this.state.userId}/orders`,{
+          fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/orders`,{
             method:'GET',
             headers:{
               "Content-type": "application/json; charset=UTF-8",
@@ -53,13 +53,13 @@ export default class Orders extends Component {
   }
   cancelOrder(e , orderID){
     e.preventDefault();
-    fetch(`http://10.145.9.58:3001/users/${this.state.userId}/orders/${orderID}`, {
+    fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/orders/${orderID}`, {
       method:'DELETE',
     })
     .then(res => res.json())
     .then(data => {
       if (data.status) {
-        fetch(`http://10.145.9.58:3001/users/${this.state.userId}/orders`,{
+        fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/orders`,{
           method:'GET',
           headers:{
             "Content-type": "application/json; charset=UTF-8",

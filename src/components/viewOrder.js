@@ -49,7 +49,7 @@ export default class ViewOrder extends Component {
     })
 
 
-    fetch(`http://10.145.9.58:3001/orders/${this.state.orderId}`, {
+    fetch(`https://hidden-dawn-97047.herokuapp.com/orders/${this.state.orderId}`, {
       method: 'GET',
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -104,7 +104,7 @@ export default class ViewOrder extends Component {
       comment: comment,
       amount: amount
     }
-    fetch(`http://10.145.9.58:3001/users/${this.state.userId}/order_details`,{
+    fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/order_details`,{
       method:'POST',
       headers:{
         "Content-type": "application/json; charset=UTF-8",

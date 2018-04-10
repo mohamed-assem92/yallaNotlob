@@ -53,7 +53,7 @@ export default class Register extends Component {
         //  files: this.state.files.base64
        };
        console.log(user)
-       fetch('http://10.145.9.58:3001/users', {
+       fetch('https://hidden-dawn-97047.herokuapp.com/users', {
      method: 'POST',
      body: JSON.stringify(user),
      headers: {

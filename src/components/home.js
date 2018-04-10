@@ -30,7 +30,7 @@ componentWillMount(){
     this.setState({ friendsArr:newArr })
   }
 })
-  fetch(`http://10.145.9.58:3001/users/${this.state.userId}/friends-activity`)
+  fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/friends-activity`)
     .then(response => response.json())
     .then(json => {
       let friendsArr = []
@@ -43,7 +43,7 @@ componentWillMount(){
         this.setState({ friendsArr:friendsArr })
 
     });
-    fetch(`http://10.145.9.58:3001/users/${this.state.userId}/orders`)
+    fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/orders`)
       .then(response => response.json())
       .then(json => {
          this.setState({ ordersArr:json })

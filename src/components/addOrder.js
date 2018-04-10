@@ -30,7 +30,7 @@ export default class AddOrder extends Component {
     console.log(files);
   }
   componentWillMount(){
-    fetch(`http://10.145.9.58:3001/users/${this.state.userId}/friends`,{
+    fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/friends`,{
       method:'GET',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -41,7 +41,7 @@ export default class AddOrder extends Component {
         let friendsArr = json.message;
         this.setState({ friendsArray:friendsArr })
       });
-    fetch(`http://10.145.9.58:3001/users/${this.state.userId}/groups`)
+    fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/groups`)
         .then(response => response.json())
         .then(json => {
           let groupsArr = json;
@@ -72,7 +72,7 @@ export default class AddOrder extends Component {
         let groupUsers = this.state.friendsResult;
 
         this.state.groupsResult.forEach((group , i)=>{
-          fetch(`http://10.145.9.58:3001/users/${this.state.userId}/groups/${this.state.groupsResult[i]}/users`)
+          fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/groups/${this.state.groupsResult[i]}/users`)
               .then(response => response.json())
               .then(json => {
                 groupUsers = groupUsers.concat(json);
@@ -108,7 +108,7 @@ export default class AddOrder extends Component {
       restaurant:resturant,
       menu_img:image
     }
-    fetch(`http://10.145.9.58:3001/users/${this.state.userId}/orders`,{
+    fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/orders`,{
       method:'POST',
       headers:{
         "Content-type": "application/json; charset=UTF-8",

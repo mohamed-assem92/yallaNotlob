@@ -17,7 +17,7 @@ export default class Friend extends Component {
     };
   }
   componentWillMount(){
-    fetch(`http://10.145.9.58:3001/users/${this.state.userId}/friends`,{
+    fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/friends`,{
       method:'GET',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -40,7 +40,7 @@ export default class Friend extends Component {
   }
   addFriend(){
     if (this.state.inputValue) {
-      fetch(`http://10.145.9.58:3001/users/${this.state.userId}/friends`, {
+      fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/friends`, {
         method: 'POST',
         body: JSON.stringify({
           email: this.state.inputValue,
@@ -68,7 +68,7 @@ export default class Friend extends Component {
   removeFriend(e , fid){
     console.log(fid);
     e.preventDefault;
-    fetch(`http://10.145.9.58:3001/users/${this.state.userId}/friends/${fid}`, {
+    fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/friends/${fid}`, {
       method:'DELETE',
     })
     .then(res => res.json())
