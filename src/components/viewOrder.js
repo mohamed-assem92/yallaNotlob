@@ -16,7 +16,7 @@ export default class ViewOrder extends Component {
     };
   }
   componentWillMount(){
-    fetch(`http://localhost:3001/orders/${this.state.orderId}`,{
+    fetch(`http://10.145.9.58:3001/orders/${this.state.orderId}`,{
       method:'GET',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -42,7 +42,7 @@ export default class ViewOrder extends Component {
       comment : comment,
       amount : amount
     }
-    fetch(`http://localhost:3001/users/${this.state.userId}/order_details`,{
+    fetch(`http://10.145.9.58:3001/users/${this.state.userId}/order_details`,{
       method:'POST',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -52,7 +52,7 @@ export default class ViewOrder extends Component {
       .then(response => response.json())
       .then(json => {
         console.log(json);
-        
+
         if (json.status) {
           let latestDetails = this.state.currentDetails;
           latestDetails.push(json.message);

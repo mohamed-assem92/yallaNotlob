@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Link , Redirect } from 'react-router-dom';
 import { Button, Input, label } from 'mdbreact';
 import SocialButton from './socialButton';
 import GoogleLogin from 'react-google-login';
 import {reactLocalStorage} from 'reactjs-localstorage';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import Home from './home';
 // reactLocalStorage.set('var', true);
 // reactLocalStorage.get('var', true);
-import { Route, Redirect } from 'react-router'
+// import { Route } from 'react-router'
 
 const handleSocialLogin = (FbUser) => {
   console.log(FbUser)
@@ -24,7 +23,7 @@ body: JSON.stringify(FbUser)
 const handleSocialLoginFailure = (err) => {
   console.error(err)
 }
-
+const responseGoogleFailure = () => {};
 const responseGoogle = (GoUser) => {
   var temp =JSON.stringify(GoUser)
 
@@ -43,6 +42,7 @@ export default class Login extends Component {
     this.state={
       email:'',
       psw:'',
+      redirect:false,
     }
  console.log(this.state.user)
   }
@@ -62,25 +62,30 @@ handleSubmit = event => {
           password: this.state.psw
         };
         // console.log({user})
-        fetch('http://localhost:3001/users/login', {
+        fetch('http://10.145.9.58:3001/users/login', {
       method: 'POST',
       body: JSON.stringify(user),
       headers:{
         "Content-type": "application/json; charset=UTF-8",
       }
     }).then(res => res.json())
-    .catch(error => console.error('Error:', error))
     .then(response => {
       if(response.status){
         localStorage.setItem('token', response.token);
-        localStorage.setItem('user_id', response.user_id);      
-
-        ReactDOM.render(<Home />, document.getElementById('root'));
+        localStorage.setItem('user_id', response.user_id);
+        this.setState({redirect:true});
+        console.log(this.state.redirect);
       }
     });
 
 }
   render() {
+
+    const {redirect} = this.state;
+    if (redirect) {
+      return <Redirect to='/home'/>;
+    }
+
     return (
 
 <div class="row">
@@ -111,14 +116,16 @@ handleSubmit = event => {
             <button class="btn btn-indigo" type="submit">Login</button>
         </div>
 
-        <div>
+        
+    </form>
+    <div>
         <label for="defaultFormLoginPasswordEx" class="blue-text">Or Sign In With:</label>
 <br/>
 <GoogleLogin  class="btn btn-white btn-rounded z-depth-1a"
 clientId="256661036793-0oob0hi0k034t80e6gm3u69i84ljnvhg.apps.googleusercontent.com"
 // buttonText="Login"
 onSuccess={responseGoogle}
-onFailure={responseGoogle}
+onFailure={responseGoogleFailure}
 >
 <i class="fa fa-google-plus blue-text" />
 </GoogleLogin>
@@ -131,8 +138,6 @@ onLoginFailure={handleSocialLoginFailure}
 <i class="fa fa-facebook"></i>
 </SocialButton>
 </div>
-    </form>
-
 
 </div>
 

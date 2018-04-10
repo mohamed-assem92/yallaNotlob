@@ -19,34 +19,34 @@ export default class Home extends Component {
 componentWillMount(){
 
   let app = {};
-  app.cable = ActionCable.createConsumer(`ws://localhost:3001/cable?token=${this.state.token}`)
+  app.cable = ActionCable.createConsumer(`ws://10.145.9.58:3001/cable?token=${this.state.token}`)
   this.subscription = app.cable.subscriptions.create({channel: "ActivitiesChannel"}, {
   connected: function() { console.log("cable: connected") },             // onConnect
   disconnected: function() { console.log("cable: disconnected") },       // onDisconnect
-  received: (data) => { 
-    console.log("cable received: ", data); 
+  received: (data) => {
+    console.log("cable received: ", data);
     let newArr = this.state.friendsArr;
     newArr.push(data);
     this.setState({ friendsArr:newArr })
-  }         
+  }
 })
-  fetch(`http://localhost:3001/users/${this.state.userId}/friends-activity`)
+  fetch(`http://10.145.9.58:3001/users/${this.state.userId}/friends-activity`)
     .then(response => response.json())
     .then(json => {
       let friendsArr = []
-          for (let i = 0; i < json.length; i++) {           
+          for (let i = 0; i < json.length; i++) {
             for (let j = 0; j < json[i].friend_orders.length; j++) {
              json[i].friend_orders[j].name = json[i].friend_name;
-             friendsArr.push(json[i].friend_orders[j]); 
-            }          
+             friendsArr.push(json[i].friend_orders[j]);
+            }
          }
         this.setState({ friendsArr:friendsArr })
-      
+
     });
-    fetch(`http://localhost:3001/users/${this.state.userId}/orders`)
+    fetch(`http://10.145.9.58:3001/users/${this.state.userId}/orders`)
       .then(response => response.json())
-      .then(json => {       
-         this.setState({ ordersArr:json })       
+      .then(json => {
+         this.setState({ ordersArr:json })
       });
 
 }
@@ -87,7 +87,7 @@ componentWillMount(){
                             <div className="excerpt">
                               <div className="brief">
                                   <a className="name" textDecoration="underline" >{friend.name + " created an order for " + friend.order_for + " from " + friend.restaurant}</a>
-                                 
+
                               </div>
                            </div>
 
