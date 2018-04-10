@@ -18,7 +18,7 @@ export default class Groups extends Component {
     };
   }
   componentWillMount() {
-    fetch(`http://192.168.1.9:3001/users/${this.state.userId}/groups`)
+    fetch(`http://localhost:3001/users/${this.state.userId}/groups`)
       .then(response => response.json())
       .then(json => {
         let groupsArr = json;
@@ -28,7 +28,7 @@ export default class Groups extends Component {
 
   addGroup() {
     if (this.state.inputValue) {
-      fetch(`http://192.168.1.9:3001/users/${this.state.userId}/groups`, {
+      fetch(`http://localhost:3001/users/${this.state.userId}/groups`, {
         method: 'POST',
         body: JSON.stringify({
           name: this.state.inputValue,
@@ -58,7 +58,7 @@ export default class Groups extends Component {
 
   deleteGroup(e, gId) {
     e.preventDefault;
-    fetch(`http://192.168.1.9:3001/users/${this.state.userId}/groups/${gId}`, {
+    fetch(`http://localhost:3001/users/${this.state.userId}/groups/${gId}`, {
       method: 'DELETE',
 
     })
@@ -127,7 +127,7 @@ class Friends extends Component {
   }
 
   componentWillMount() {
-    fetch(`http://192.168.1.9:3001/users/1/groups/${this.state.groupID}/users`)
+    fetch(`http://localhost:3001/users/1/groups/${this.state.groupID}/users`)
       .then(response => response.json())
       .then(json => {
         if(json.status){
@@ -139,7 +139,7 @@ class Friends extends Component {
 
   removeFriend(e, fID) {
     e.preventDefault;
-    fetch(`http://192.168.1.9:3001/users/${this.state.userId}/groups/${this.state.groupID}/friends/${fID}`, {
+    fetch(`http://localhost:3001/users/${this.state.userId}/groups/${this.state.groupID}/friends/${fID}`, {
       method: 'DELETE',
     })
       .then(response => response.json())
@@ -158,7 +158,7 @@ class Friends extends Component {
 
   addFriend() {
     if (this.state.inputValue) {
-      fetch(`http://192.168.1.9:3001/users/${this.state.userId}/groups/${this.state.groupID}/friends`, {
+      fetch(`http://localhost:3001/users/${this.state.userId}/groups/${this.state.groupID}/friends`, {
         method: 'POST',
         body: JSON.stringify({
           name: this.state.inputValue,

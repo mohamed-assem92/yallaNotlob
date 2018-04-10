@@ -16,7 +16,7 @@ export default class ViewOrder extends Component {
     };
   }
   componentWillMount(){
-    fetch(`http://192.168.1.9:3001/orders/${this.state.orderId}`,{
+    fetch(`http://localhost:3001/orders/${this.state.orderId}`,{
       method:'GET',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -42,7 +42,7 @@ export default class ViewOrder extends Component {
       comment : comment,
       amount : amount
     }
-    fetch(`http://192.168.1.9:3001/users/${this.state.userId}/order_details`,{
+    fetch(`http://localhost:3001/users/${this.state.userId}/order_details`,{
       method:'POST',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -51,6 +51,8 @@ export default class ViewOrder extends Component {
     })
       .then(response => response.json())
       .then(json => {
+        console.log(json);
+        
         if (json.status) {
           let latestDetails = this.state.currentDetails;
           latestDetails.push(json.message);
@@ -78,7 +80,17 @@ export default class ViewOrder extends Component {
         </tr>
     </thead>
     <tbody className="tableBody">
-      
+      {this.state.currentDetails.map((detail)=>{
+        return(
+          <tr  key={uuidv4()}>
+            <th  key={uuidv4()} scope="row">{detail.user_id}</th>
+            <td  key={uuidv4()}>{detail.item}</td>
+            <td  key={uuidv4()}>{detail.amount}</td>
+            <td  key={uuidv4()}>{detail.price}</td>
+            <td  key={uuidv4()}>{detail.comment}</td>
+        </tr>
+        );
+      })}
     </tbody>
     </table>
     </div>
