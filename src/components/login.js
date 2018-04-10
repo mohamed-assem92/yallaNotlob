@@ -66,7 +66,6 @@ export default class Login extends Component {
   }
 
   handleChangeEmail = event => {
-<<<<<<< HEAD
     this.setState({ email: event.target.value });
   }
   handleChangePsw = event => {
@@ -82,23 +81,6 @@ export default class Login extends Component {
     };
     console.log({ user })
     fetch('http://localhost:3001/users/login', {
-=======
-      this.setState({ email: event.target.value });
-    }
- handleChangePsw = event =>{
-   this.setState({ psw: event.target.value})
- }
-
-handleSubmit = event => {
-        event.preventDefault();
-
-        const user = {
-          email: this.state.email,
-          password: this.state.psw
-        };
-        // console.log({user})
-        fetch('http://localhost:3001/users/login', {
->>>>>>> 42af71d5b939f98d25d1e349ac204140c65f71c3
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
