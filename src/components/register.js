@@ -53,7 +53,7 @@ export default class Register extends Component {
         //  files: this.state.files.base64
        };
        console.log(user)
-       fetch('http://192.168.1.9:3001/users', {
+       fetch('http://localhost:3001/users', {
      method: 'POST',
      body: JSON.stringify(user),
      headers: {
