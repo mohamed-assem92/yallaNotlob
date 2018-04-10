@@ -33,21 +33,26 @@ export default class NavbarFeatures extends React.Component {
   }
 
   componentWillMount() {
+      let loggedUser = localStorage.getItem('user_id');
+      if(!loggedUser){
+        ReactDOM.render(<Login />, document.getElementById('root'));
+      }
+
     let app = {};
     app.cable = ActionCable.createConsumer(`ws://localhost:3001/cable?token=${this.state.token}`)
 
     this.subscription = app.cable.subscriptions.create({channel: "NotificationsChannel"}, {
       connected: function() { console.log("cable: connected") },             // onConnect
       disconnected: function() { console.log("cable: disconnected") },       // onDisconnect
-      received: (data) => { 
-        console.log("cable received: ", data); 
+      received: (data) => {
+        console.log("cable received: ", data);
         let newNotifications = this.state.notifications;
         newNotifications.push(data);
         this.setState({ count : this.state.count + 1, notifications : newNotifications })
-      }         
+      }
     })
 
-    
+
     fetch(`http://localhost:3001/users/${this.state.userId}`)
       .then(response => response.json())
       .then(json => {
@@ -91,7 +96,7 @@ export default class NavbarFeatures extends React.Component {
   handleLogOut(){
     reactLocalStorage.clear();
     console.log("dddd");
-    
+
     // <Redirect to="/login"/>
 
     ReactDOM.render(<Login />, document.getElementById('root'));
