@@ -26,7 +26,7 @@ export default class ResetPsw extends Component{
         if(this.state.newPsw == this.state.conPsw )
           {
               const user = {
-                newPsw: this.state.newPsw,
+                password: this.state.newPsw,
               };
               // console.log({user})
             fetch('http://10.145.9.58:3001/password/reset', {
@@ -38,6 +38,7 @@ export default class ResetPsw extends Component{
           }).then(res => res.json())
           .catch(error => console.error('Error:', error))
           .then(response => {
+            console.log(response);
             if(response.status){
             }
           });

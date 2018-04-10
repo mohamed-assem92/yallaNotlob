@@ -35,6 +35,7 @@ export default class ForgetPsw extends Component{
         .catch(error => console.error('Error:', error))
         .then(response => {
           if(response.status){
+            //redirect to login
           }
         });
 
