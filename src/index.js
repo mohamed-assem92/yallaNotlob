@@ -7,7 +7,8 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import AppRouter from './appRouter/appRouter';
+import { BrowserRouter } from 'react-router-dom';
 
 
-ReactDOM.render(<AppRouter />, document.getElementById('root'));
+ReactDOM.render(<BrowserRouter><AppRouter /></BrowserRouter>, document.getElementById('root'));
 registerServiceWorker();

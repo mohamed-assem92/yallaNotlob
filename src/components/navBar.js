@@ -27,15 +27,20 @@ export default class NavbarFeatures extends React.Component {
       userId : localStorage.getItem("user_id"),
       token : localStorage.getItem("token"),
       notifications:[],
+      redirectToLogin:false,
+      loggedIN:false,
     };
   this.onClick = this.onClick.bind(this);
   this.toggle = this.toggle.bind(this);
+  this.handleLogOut = this.handleLogOut.bind(this);
   }
 
   componentWillMount() {
-     
+     if (this.state.token) {
+       this.setState({loggedIN:true});
+     }
     let app = {};
-    app.cable = ActionCable.createConsumer(`ws://10.145.9.58:3001/cable?token=${this.state.token}`)
+    app.cable = ActionCable.createConsumer(`ws://192.168.1.3:3001/cable?token=${this.state.token}`)
 
     this.subscription = app.cable.subscriptions.create({channel: "NotificationsChannel"}, {
       connected: function() { console.log("cable: connected") },             // onConnect
@@ -49,7 +54,11 @@ export default class NavbarFeatures extends React.Component {
     })
 
 
+<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}`)
+=======
+    fetch(`http://192.168.1.3:3001/users/${this.state.userId}`)
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       .then(response => response.json())
       .then(json => {
         if(json.status){
@@ -60,7 +69,11 @@ export default class NavbarFeatures extends React.Component {
 
       });
 
+<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/notifications/new`)
+=======
+    fetch(`http://192.168.1.3:3001/users/${this.state.userId}/notifications/new`)
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       .then(response => response.json())
       .then(json => { this.setState({ count: json.count , notifications:json.notifications}) });
   }
@@ -78,7 +91,11 @@ export default class NavbarFeatures extends React.Component {
   }
 
   notificationsClicked(){
+<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/notifications`,{
+=======
+    fetch(`http://192.168.1.3:3001/users/${this.state.userId}/notifications`,{
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       method:'PATCH',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -89,15 +106,18 @@ export default class NavbarFeatures extends React.Component {
 
     })
   }
-  handleLogOut(){
+  handleLogOut(e){
+    e.preventDefault();
     reactLocalStorage.clear();
     console.log("dddd");
-
-    // <Redirect to="/login"/>
-
+    this.setState({redirectToLogin:true}); 
   }
 
   render() {
+    const {redirectToLogin} = this.state;
+    if (redirectToLogin) {
+      return <Redirect to='/login'/>;
+    }
       return (
         <nav>
       <Navbar color="indigo" dark expand="md" scrolling>
@@ -106,6 +126,7 @@ export default class NavbarFeatures extends React.Component {
         </NavbarBrand>
         {!this.state.isWideEnough && <NavbarToggler onClick={this.onClick} />}
         <Collapse isOpen={this.state.collapse} navbar>
+        {this.state.loggedIN &&
           <NavbarNav left>
             <NavItem active>
               <NavLink to='/home' exact activeClassName="active"><i className="fa fa-home" aria-hidden="true"></i>Home</NavLink>
@@ -120,6 +141,8 @@ export default class NavbarFeatures extends React.Component {
               <NavLink exact to="/orders"><i className="fa fa-tasks" aria-hidden="true"></i>Orders</NavLink>
             </NavItem>
           </NavbarNav>
+        }
+        {this.state.loggedIN ? 
           <NavbarNav right>
             <NavItem>
               <NotificationBadge count={this.state.count} effect={Effect.SCALE} />
@@ -135,9 +158,19 @@ export default class NavbarFeatures extends React.Component {
               <a className="nav-link waves-effect waves-light"><i className="fa fa-edit" aria-hidden="true"></i>{this.state.user.name}</a>
             </NavItem>
             <NavItem>
-              <button color="white" onClick={this.handleLogOut} className="nav-link waves-effect waves-light"><i className="fa fa-sign-out" aria-hidden="true"></i>Logout</button>
+              <NavLink to="/logout" onClick={(e)=>{this.handleLogOut(e)}} className="nav-link waves-effect waves-light"><i className="fa fa-sign-out" aria-hidden="true"></i>Logout</NavLink>
             </NavItem>
           </NavbarNav>
+          :
+          <NavbarNav right>
+          <NavItem>
+            <NavLink exact to="/register"><i className="fa fa-tasks" aria-hidden="true"></i>RegisterNow</NavLink>
+            </NavItem>
+            <NavItem>
+            <NavLink exact to="/login"><i className="fa fa-tasks" aria-hidden="true"></i>Login</NavLink>
+            </NavItem>
+          </NavbarNav>
+          }
         </Collapse>
       </Navbar>
       {this.state.showNotifications && < NotificationsDiv nots={this.state.notifications}/ >}

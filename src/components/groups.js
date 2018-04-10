@@ -18,7 +18,11 @@ export default class Groups extends Component {
     };
   }
   componentWillMount() {
+<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/groups`)
+=======
+    fetch(`http://192.168.1.3:3001/users/${this.state.userId}/groups`)
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       .then(response => response.json())
       .then(json => {
         let groupsArr = json;
@@ -28,7 +32,11 @@ export default class Groups extends Component {
 
   addGroup() {
     if (this.state.inputValue) {
+<<<<<<< HEAD
       fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/groups`, {
+=======
+      fetch(`http://192.168.1.3:3001/users/${this.state.userId}/groups`, {
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
         method: 'POST',
         body: JSON.stringify({
           name: this.state.inputValue,
@@ -58,7 +66,11 @@ export default class Groups extends Component {
 
   deleteGroup(e, gId) {
     e.preventDefault;
+<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/groups/${gId}`, {
+=======
+    fetch(`http://192.168.1.3:3001/users/${this.state.userId}/groups/${gId}`, {
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       method: 'DELETE',
 
     })
@@ -127,7 +139,11 @@ class Friends extends Component {
   }
 
   componentWillMount() {
+<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/1/groups/${this.state.groupID}/users`)
+=======
+    fetch(`http://192.168.1.3:3001/users/1/groups/${this.state.groupID}/users`)
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       .then(response => response.json())
       .then(json => {
         if(json.status){
@@ -139,7 +155,11 @@ class Friends extends Component {
 
   removeFriend(e, fID) {
     e.preventDefault;
+<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/groups/${this.state.groupID}/friends/${fID}`, {
+=======
+    fetch(`http://192.168.1.3:3001/users/${this.state.userId}/groups/${this.state.groupID}/friends/${fID}`, {
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       method: 'DELETE',
     })
       .then(response => response.json())
@@ -158,7 +178,11 @@ class Friends extends Component {
 
   addFriend() {
     if (this.state.inputValue) {
+<<<<<<< HEAD
       fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/groups/${this.state.groupID}/friends`, {
+=======
+      fetch(`http://192.168.1.3:3001/users/${this.state.userId}/groups/${this.state.groupID}/friends`, {
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
         method: 'POST',
         body: JSON.stringify({
           name: this.state.inputValue,

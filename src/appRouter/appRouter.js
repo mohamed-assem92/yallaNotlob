@@ -32,9 +32,8 @@ class AppRouter extends React.Component {
             <BrowserRouter>
             <div>
                     
-                {this.state.jwt && < NavbarFeatures /> }
+                < NavbarFeatures />
                 <Switch>
-                    <PrivateRoute path="/" component={Home} exact={true} />
                     <PrivateRoute path="/home" component={Home} exact={true} />
                     <PrivateRoute path="/friend" component={Friend} exact={true} />
                     <PrivateRoute path="/groups" component={Groups} exact={true} />
@@ -46,6 +45,8 @@ class AppRouter extends React.Component {
                     <Route exact path="/password/forget" component={ForgetPsw} />
                     <Route exact path="/password/reset" component={ResetPsw} />
                     <Route exact path="/login" component={Login} />
+                    <PrivateRoute path="/" component={Home} exact={true} />
+
                 </Switch>
             </div>
             </BrowserRouter>

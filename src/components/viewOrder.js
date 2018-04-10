@@ -22,7 +22,7 @@ export default class ViewOrder extends Component {
     
 
     let app = {};
-    app.cable = ActionCable.createConsumer(`ws://10.145.9.58:3001/cable?token=${this.state.token}`)
+    app.cable = ActionCable.createConsumer(`ws://192.168.1.3:3001/cable?token=${this.state.token}`)
 
     this.subscription = app.cable.subscriptions.create({ channel: "OrdersChannel" }, {
       connected: function () { console.log("cable: connected") },             // onConnect
@@ -49,7 +49,11 @@ export default class ViewOrder extends Component {
     })
 
 
+<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/orders/${this.state.orderId}`, {
+=======
+    fetch(`http://192.168.1.3:3001/orders/${this.state.orderId}`, {
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       method: 'GET',
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -64,6 +68,7 @@ export default class ViewOrder extends Component {
           let names = json.message.names;
           for (let i = 0; i < orders.length; i++) {
             orders[i].name = names[i]
+            orders[i].state = json.message.state;
           }
           let details = orders;
           this.setState({ currentDetails: details });
@@ -104,7 +109,11 @@ export default class ViewOrder extends Component {
       comment: comment,
       amount: amount
     }
+<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/order_details`,{
+=======
+    fetch(`http://192.168.1.3:3001/users/${this.state.userId}/order_details`,{
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       method:'POST',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -152,7 +161,7 @@ export default class ViewOrder extends Component {
                       <td key={uuidv4()}>{detail.amount}</td>
                       <td key={uuidv4()}>{detail.price}</td>
                       <td key={uuidv4()}>{detail.comment}
-                        {detail.user_id == this.state.userId && <button id={detail.id} onClick={(e)=>{this.removeDetail(e)}}>delete</button>}
+                        {detail.user_id == this.state.userId && detail.state == "waiting" && <button id={detail.id} onClick={(e)=>{this.removeDetail(e)}}>delete</button>}
                       </td>                      
                     </tr>
                   );

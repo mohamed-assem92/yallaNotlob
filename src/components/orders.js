@@ -15,7 +15,11 @@ export default class Orders extends Component {
     };
   }
   componentWillMount(){
+<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/orders`,{
+=======
+    fetch(`http://192.168.1.3:3001/users/${this.state.userId}/orders`,{
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       method:'GET',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -29,7 +33,11 @@ export default class Orders extends Component {
   }
   finishOrder(e , orderID){
     e.preventDefault();
+<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/orders/${orderID}`,{
+=======
+    fetch(`http://192.168.1.3:3001/users/${this.state.userId}/orders/${orderID}`,{
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       method:'PATCH',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -38,7 +46,11 @@ export default class Orders extends Component {
       .then(response => response.json())
       .then(json => {
         if (json.status) {
+<<<<<<< HEAD
           fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/orders`,{
+=======
+          fetch(`http://192.168.1.3:3001/users/${this.state.userId}/orders`,{
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
             method:'GET',
             headers:{
               "Content-type": "application/json; charset=UTF-8",
@@ -53,13 +65,21 @@ export default class Orders extends Component {
   }
   cancelOrder(e , orderID){
     e.preventDefault();
+<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/orders/${orderID}`, {
+=======
+    fetch(`http://192.168.1.3:3001/users/${this.state.userId}/orders/${orderID}`, {
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       method:'DELETE',
     })
     .then(res => res.json())
     .then(data => {
       if (data.status) {
+<<<<<<< HEAD
         fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/orders`,{
+=======
+        fetch(`http://192.168.1.3:3001/users/${this.state.userId}/orders`,{
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
           method:'GET',
           headers:{
             "Content-type": "application/json; charset=UTF-8",

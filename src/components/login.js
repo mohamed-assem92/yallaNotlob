@@ -6,6 +6,8 @@ import GoogleLogin from 'react-google-login';
 import {reactLocalStorage} from 'reactjs-localstorage';
 // import ReactDOM from 'react-dom';
 import Home from './home';
+import "./login.css";
+
 // reactLocalStorage.set('var', true);
 // reactLocalStorage.get('var', true);
 // import { Route } from 'react-router'
@@ -27,6 +29,8 @@ const handleSocialLogin = (FbUser) => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('user_id', response.user_id);
         // redirect here to home
+        this.setState({redirect:true});
+        
       }
     });
 }
@@ -50,6 +54,8 @@ const responseGoogle = (GoUser) => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('user_id', response.user_id);
         // redirect here to home
+        this.setState({redirect:true});
+
       } 
     });
 }
@@ -62,7 +68,6 @@ export default class Login extends Component {
       psw:'',
       redirect:false,
     }
-    console.log(this.state.user)
   }
 
   handleChangeEmail = event => {
@@ -80,7 +85,11 @@ handleSubmit = event => {
           password: this.state.psw
         };
         // console.log({user})
+<<<<<<< HEAD
         fetch('https://hidden-dawn-97047.herokuapp.com/users/login', {
+=======
+        fetch('http://192.168.1.3:3001/users/login', {
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
@@ -92,7 +101,6 @@ handleSubmit = event => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('user_id', response.user_id);
         this.setState({redirect:true});
-        console.log(this.state.redirect);
       }
     });
 
@@ -105,17 +113,9 @@ handleSubmit = event => {
     }
 
     return (
-
-      <div className="row">
-
-        <div className="col">
-        </div>
-
-        <div className="col">
-
-
-
-
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-md-6">
           <form onSubmit={this.handleSubmit}>
             <p className="h4 text-center mb-4">Sign in</p>
 
@@ -134,37 +134,30 @@ handleSubmit = event => {
               <button className="btn btn-indigo" type="submit">Login</button>
             </div>
           </form>
-          <div>
-        <label for="defaultFormLoginPasswordEx" class="blue-text">Or Sign In With:</label>
-<br/>
-<GoogleLogin  class="btn btn-white btn-rounded z-depth-1a"
-clientId="256661036793-0oob0hi0k034t80e6gm3u69i84ljnvhg.apps.googleusercontent.com"
-// buttonText="Login"
-onSuccess={responseGoogle}
-onFailure={responseGoogleFailure}
->
-<i class="fa fa-google-plus blue-text" />
-</GoogleLogin>
-<SocialButton class="btn btn-fb"
-provider='facebook'
-appId='183353488972514'
-onLoginSuccess={handleSocialLogin}
-onLoginFailure={handleSocialLoginFailure}
->
-<i class="fa fa-facebook"></i>
-</SocialButton>
-</div>
-
+          </div>
         </div>
-
-        <div className="col">
+        <div className="row justify-content-center">
+          <label for="defaultFormLoginPasswordEx" className="blue-text">Social Login</label>
         </div>
-    
-
-</div>
-
-
-
+        <div className="row justify-content-center">
+          <GoogleLogin  className="btn btn-gplus"
+            clientId="256661036793-0oob0hi0k034t80e6gm3u69i84ljnvhg.apps.googleusercontent.com"
+            // buttonText="Login"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogleFailure}
+          >
+            <i class="fa fa-google-plus pr-1"></i>Login With Google+
+          </GoogleLogin>
+          <SocialButton className="btn btn-fb"
+            provider='facebook'
+            appId='183353488972514'
+            onLoginSuccess={handleSocialLogin}
+            onLoginFailure={handleSocialLoginFailure}
+          >
+            <i className="fa fa-facebook pr-1"></i>Login With FaceBook
+          </SocialButton>
+        </div>
+      </div>
     );
   }
 }

@@ -19,7 +19,7 @@ export default class Home extends Component {
 componentWillMount(){
 
   let app = {};
-  app.cable = ActionCable.createConsumer(`ws://10.145.9.58:3001/cable?token=${this.state.token}`)
+  app.cable = ActionCable.createConsumer(`ws://192.168.1.3:3001/cable?token=${this.state.token}`)
   this.subscription = app.cable.subscriptions.create({channel: "ActivitiesChannel"}, {
   connected: function() { console.log("cable: connected") },             // onConnect
   disconnected: function() { console.log("cable: disconnected") },       // onDisconnect
@@ -30,7 +30,11 @@ componentWillMount(){
     this.setState({ friendsArr:newArr })
   }
 })
+<<<<<<< HEAD
   fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/friends-activity`)
+=======
+  fetch(`http://192.168.1.3:3001/users/${this.state.userId}/friends-activity`)
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
     .then(response => response.json())
     .then(json => {
       let friendsArr = []
@@ -43,7 +47,11 @@ componentWillMount(){
         this.setState({ friendsArr:friendsArr })
 
     });
+<<<<<<< HEAD
     fetch(`https://hidden-dawn-97047.herokuapp.com/users/${this.state.userId}/orders`)
+=======
+    fetch(`http://192.168.1.3:3001/users/${this.state.userId}/orders`)
+>>>>>>> 61a469a9ee5ae78c30ba6d96a5f1e403c788b0e0
       .then(response => response.json())
       .then(json => {
          this.setState({ ordersArr:json })
@@ -62,7 +70,7 @@ componentWillMount(){
           <h3>Latest Orders</h3>
           <ul className="list-group list-group-flush" >
           {this.state.ordersArr.map(function(order, index){
-                   return <li key={uuidv4()} className="list-group-item">{order.order_for + " from "+ order.restaurant +" on " + order.created_at }<button className="btn btn-indigo">Details</button></li>;
+                   return <li key={uuidv4()} className="list-group-item"><Link to={`/viewOrder/${order.id}`}>{order.order_for + " from "+ order.restaurant + " on " + order.created_at }</Link></li>;
                  })}
           </ul>
       </div>
