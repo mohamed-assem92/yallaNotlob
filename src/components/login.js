@@ -6,7 +6,6 @@ import GoogleLogin from 'react-google-login';
 import {reactLocalStorage} from 'reactjs-localstorage';
 // import ReactDOM from 'react-dom';
 import Home from './home';
-import { Route, Redirect } from 'react-router'
 // reactLocalStorage.set('var', true);
 // reactLocalStorage.get('var', true);
 // import { Route } from 'react-router'
@@ -133,27 +132,6 @@ handleSubmit = event => {
 
             <div className="text-center mt-4">
               <button className="btn btn-indigo" type="submit">Login</button>
-            </div>
-
-            <div>
-              <label for="defaultFormLoginPasswordEx" className="blue-text">Or Sign In With:</label>
-              <br />
-              <GoogleLogin className="btn btn-white btn-rounded z-depth-1a"
-                clientId="256661036793-0oob0hi0k034t80e6gm3u69i84ljnvhg.apps.googleusercontent.com"
-                // buttonText="Login"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-              >
-                <i className="fa fa-google-plus blue-text" />
-              </GoogleLogin>
-              <SocialButton className="btn btn-fb"
-                provider='facebook'
-                appId='183353488972514'
-                onLoginSuccess={handleSocialLogin}
-                onLoginFailure={handleSocialLoginFailure}
-              >
-                <i className="fa fa-facebook"></i>
-              </SocialButton>
             </div>
           </form>
           <div>
