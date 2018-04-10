@@ -62,7 +62,7 @@ handleSubmit = event => {
           password: this.state.psw
         };
         // console.log({user})
-        fetch('http://localhost:3001/users/login', {
+        fetch('http://192.168.1.9:3001/users/login', {
       method: 'POST',
       body: JSON.stringify(user),
       headers:{

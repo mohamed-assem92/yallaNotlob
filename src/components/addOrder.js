@@ -30,7 +30,7 @@ export default class AddOrder extends Component {
     console.log(files);
   }
   componentWillMount(){
-    fetch(`http://localhost:3001/users/${this.state.userId}/friends`,{
+    fetch(`http://192.168.1.9:3001/users/${this.state.userId}/friends`,{
       method:'GET',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -41,7 +41,7 @@ export default class AddOrder extends Component {
         let friendsArr = json.message;
         this.setState({ friendsArray:friendsArr })
       });
-    fetch(`http://localhost:3001/users/${this.state.userId}/groups`)
+    fetch(`http://192.168.1.9:3001/users/${this.state.userId}/groups`)
         .then(response => response.json())
         .then(json => {
           let groupsArr = json;
@@ -72,7 +72,7 @@ export default class AddOrder extends Component {
         let groupUsers = this.state.friendsResult;
 
         this.state.groupsResult.forEach((group , i)=>{
-          fetch(`http://localhost:3001/users/${this.state.userId}/groups/${this.state.groupsResult[i]}/users`)
+          fetch(`http://192.168.1.9:3001/users/${this.state.userId}/groups/${this.state.groupsResult[i]}/users`)
               .then(response => response.json())
               .then(json => {
                 groupUsers = groupUsers.concat(json);
@@ -88,10 +88,7 @@ export default class AddOrder extends Component {
         if (this.state.friendsResult.length > 0) {
           myData = this.state.friendsResult;
           var myArray = Array.from(new Set(myData.map(JSON.stringify))).map(JSON.parse);
-          // for (var i = 0; i < myArray.length; i++) {
-          //   this.state.invitaionResult.push(myArray[i]);
-          // }
-          this.setState({invitaionResult : myArray})
+          this.setState({invitaionResult:myArray});
       }
   }
   var unique = this.state.currentChoosen.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
@@ -99,7 +96,7 @@ export default class AddOrder extends Component {
 
 }
 
-  handleSubmit(e){
+  handleSubmit(e){    
     e.preventDefault();
     var orderFor = this.refs.orderFor.value;
     var resturant = e.target.resturantName.value;
@@ -111,7 +108,7 @@ export default class AddOrder extends Component {
       restaurant:resturant,
       menu_img:image
     }
-    fetch(`http://localhost:3001/users/${this.state.userId}/orders`,{
+    fetch(`http://192.168.1.9:3001/users/${this.state.userId}/orders`,{
       method:'POST',
       headers:{
         "Content-type": "application/json; charset=UTF-8",

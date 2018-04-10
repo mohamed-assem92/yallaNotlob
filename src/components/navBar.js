@@ -39,7 +39,7 @@ export default class NavbarFeatures extends React.Component {
       }
 
     let app = {};
-    app.cable = ActionCable.createConsumer(`ws://localhost:3001/cable?token=${this.state.token}`)
+    app.cable = ActionCable.createConsumer(`ws://192.168.1.9:3001/cable?token=${this.state.token}`)
 
     this.subscription = app.cable.subscriptions.create({channel: "NotificationsChannel"}, {
       connected: function() { console.log("cable: connected") },             // onConnect
@@ -52,8 +52,8 @@ export default class NavbarFeatures extends React.Component {
       }
     })
 
-
-    fetch(`http://localhost:3001/users/${this.state.userId}`)
+    
+    fetch(`http://192.168.1.9:3001/users/${this.state.userId}`)
       .then(response => response.json())
       .then(json => {
         if(json.status){
@@ -64,7 +64,7 @@ export default class NavbarFeatures extends React.Component {
 
       });
 
-    fetch(`http://localhost:3001/users/${this.state.userId}/notifications/new`)
+    fetch(`http://192.168.1.9:3001/users/${this.state.userId}/notifications/new`)
       .then(response => response.json())
       .then(json => { this.setState({ count: json.count , notifications:json.notifications}) });
   }

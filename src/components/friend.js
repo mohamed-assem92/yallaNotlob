@@ -17,7 +17,7 @@ export default class Friend extends Component {
     };
   }
   componentWillMount(){
-    fetch(`http://localhost:3001/users/${this.state.userId}/friends`,{
+    fetch(`http://192.168.1.9:3001/users/${this.state.userId}/friends`,{
       method:'GET',
       headers:{
         "Content-type": "application/json; charset=UTF-8",
@@ -25,11 +25,12 @@ export default class Friend extends Component {
     })
       .then(response => response.json())
       .then(json => {
-        if(json.status){
+        if (json.status) {
+          console.log(json);
+          
           let friendsArr = json.message;
-          this.setState({ friendsArray:friendsArr })
+        this.setState({ friendsArray:friendsArr })
         }
-       
       });
   }
   updateInputValue(e) {
@@ -39,7 +40,7 @@ export default class Friend extends Component {
   }
   addFriend(){
     if (this.state.inputValue) {
-      fetch(`http://localhost:3001/users/${this.state.userId}/friends`, {
+      fetch(`http://192.168.1.9:3001/users/${this.state.userId}/friends`, {
         method: 'POST',
         body: JSON.stringify({
           email: this.state.inputValue,
@@ -67,7 +68,7 @@ export default class Friend extends Component {
   removeFriend(e , fid){
     console.log(fid);
     e.preventDefault;
-    fetch(`http://localhost:3001/users/${this.state.userId}/friends/${fid}`, {
+    fetch(`http://192.168.1.9:3001/users/${this.state.userId}/friends/${fid}`, {
       method:'DELETE',
     })
     .then(res => res.json())

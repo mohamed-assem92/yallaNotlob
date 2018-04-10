@@ -19,7 +19,7 @@ export default class Home extends Component {
 componentWillMount(){
 
   let app = {};
-  app.cable = ActionCable.createConsumer(`ws://localhost:3001/cable?token=${this.state.token}`)
+  app.cable = ActionCable.createConsumer(`ws://192.168.1.9:3001/cable?token=${this.state.token}`)
   this.subscription = app.cable.subscriptions.create({channel: "ActivitiesChannel"}, {
   connected: function() { console.log("cable: connected") },             // onConnect
   disconnected: function() { console.log("cable: disconnected") },       // onDisconnect
@@ -30,7 +30,7 @@ componentWillMount(){
     this.setState({ friendsArr:newArr })
   }         
 })
-  fetch(`http://localhost:3001/users/${this.state.userId}/friends-activity`)
+  fetch(`http://192.168.1.9:3001/users/${this.state.userId}/friends-activity`)
     .then(response => response.json())
     .then(json => {
       let friendsArr = []
@@ -43,7 +43,7 @@ componentWillMount(){
         this.setState({ friendsArr:friendsArr })
       
     });
-    fetch(`http://localhost:3001/users/${this.state.userId}/orders`)
+    fetch(`http://192.168.1.9:3001/users/${this.state.userId}/orders`)
       .then(response => response.json())
       .then(json => {       
          this.setState({ ordersArr:json })       
