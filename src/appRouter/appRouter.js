@@ -39,7 +39,7 @@ class AppRouter extends React.Component {
                     <PrivateRoute path="/friend" component={Friend} exact={true} />
                     <PrivateRoute path="/groups" component={Groups} exact={true} />
                     <PrivateRoute path="/addOrder" component={AddOrder} exact={true} />
-                    <PrivateRoute path="/viewOrder" component={ViewOrder} exact={true} />
+                    <PrivateRoute path="/viewOrder/:id" component={ViewOrder} exact={true} />
                     <PrivateRoute path="/orders" component={Orders} exact={true} />
                     <PrivateRoute path="/notifications" component={Notifications} exact={true} />
                     <Route exact path="/register" component={Register} />

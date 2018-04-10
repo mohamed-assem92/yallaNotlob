@@ -9,6 +9,7 @@ export default class ViewOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      prop: this.props,
       orderId: this.props.location.pathname.split("/")[2],
       currentDetails: [],
       userId: localStorage.getItem("user_id"),
@@ -16,7 +17,9 @@ export default class ViewOrder extends Component {
     };
   }
   componentWillMount() {
-
+    
+    console.log(this.state.orderId);
+    
 
     let app = {};
     app.cable = ActionCable.createConsumer(`ws://10.145.9.58:3001/cable?token=${this.state.token}`)
